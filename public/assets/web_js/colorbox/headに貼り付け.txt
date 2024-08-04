@@ -1,0 +1,22 @@
+﻿<!-- colorbox -->
+<link rel="stylesheet" type="text/css" href="js/colorbox/colorbox.css"/>
+<script type="text/javascript" src="js/colorbox/jquery.colorbox.js"></script>
+<script>
+$(function() {
+$(".colorbox").colorbox({
+	next:false,
+	previous:false,
+	maxWidth:"90%",
+	maxHeight:"90%",
+});
+});
+$(function() {
+$(".cb_close").click(function(){
+parent.$.fn.colorbox.close(); return false;
+});
+});
+</script>
+<!-- //colorbox -->
+
+<a class="colorbox" href="" rel="group0"></a>
+<a href="#" onclick="$.colorbox.close(); return false;" class="close_btn">×</a>

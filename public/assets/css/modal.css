@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+.modal_inner {
+	padding:20px;
+}
+.modal_title {
+	padding:12px 20px;
+	background-color:#efefef;
+	border-bottom:1px solid #dbdbdb;
+	font-weight:bold;
+	font-size:14px;
+}
+.gamodal .btn {
+	border-radius: 0px!important;
+	-webkit-border-radius: 0px!important;
+	-moz-border-radius: 0px!important;
+}
+.gamodal .title {
+	font-size:14px;
+	font-weight:bold;
+	padding:15px 15px;
+	background-color:#f9f9f9;
+	border-bottom:1px solid #ededed;
+}
+.gamodal_contents_frame {
+	font-size:14px;
+	padding:20px;
+	height:100px;
+	overflow:scroll;
+}
