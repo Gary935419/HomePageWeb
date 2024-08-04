@@ -441,7 +441,7 @@
 
                 <ul class="footer_sub_nav">
                     <li><a href="/aboutus/#area01">会社概要</a></li>
-                    <li><a href="/ahoutus/business">私たちの事業</a></li>
+                    <li><a href="/aboutus/business">私たちの事業</a></li>
                     <li><a href="/aboutus/team">私たちのチーム</a></li>
                     <li><a href="/aboutus/history">私たちのおいたち</a></li>
                     <li><a href="/aboutus/message">トップメッセージ</a></li>
