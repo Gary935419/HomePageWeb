@@ -24,7 +24,7 @@ class Web extends Model
                 $query = $query->where('n_important_flg','=',0);
             }
 
-            $S_NEWS_result = $query->orderBy('id')->get()->toArray();
+            $S_NEWS_result = $query->orderBy('sort')->get()->toArray();
 
             return $S_NEWS_result;
         } catch (\Exception $e) {
@@ -38,7 +38,7 @@ class Web extends Model
             $query = DB::table('S_PRODUCT_BANNERS');
             $S_PRODUCT_BANNERS_result = $query->where('is_del', '=', 0)
                 ->where('b_flg', '=', 1)
-                ->orderBy('id')
+                ->orderBy('sort')
                 ->get()->toArray();
             if (!empty($S_PRODUCT_BANNERS_result)){
                 foreach ($S_PRODUCT_BANNERS_result as $k=>$v){
@@ -59,7 +59,7 @@ class Web extends Model
             $S_COMPANY_result = $query->where('is_del', '=', 0)
                 ->where('open_flg', '=', 1)
                 ->where('select_flg', '=', 1)
-                ->orderBy('id')
+                ->orderBy('sort')
                 ->get()->toArray();
             if (!empty($S_COMPANY_result)){
                 foreach ($S_COMPANY_result as $k=>$v){
@@ -110,7 +110,7 @@ class Web extends Model
                         ->orWhere('exhibition_dates10', '>=', $date);
                 });
             }
-            $S_SEMINARS_EXHIBITIONS_result = $query->orderBy('id')->get()->toArray();
+            $S_SEMINARS_EXHIBITIONS_result = $query->orderBy('sort')->get()->toArray();
             if (!empty($S_SEMINARS_EXHIBITIONS_result)){
                 foreach ($S_SEMINARS_EXHIBITIONS_result as $k=>$v){
                     $S_SEMINARS_EXHIBITIONS_result[$k]['b_url'] = config('config.admin_url') . $v['b_url'];
@@ -139,7 +139,7 @@ class Web extends Model
         try {
             $query = DB::table('S_PRODUCT_LABLES');
             $S_PRODUCT_LABLES_result = $query->where('is_del', '=', 0)
-                ->orderBy('id')
+                ->orderBy('sort')
                 ->get()->toArray();
             return $S_PRODUCT_LABLES_result;
         } catch (\Exception $e) {
@@ -157,7 +157,7 @@ class Web extends Model
             if (!empty($lables_arr)) {
                 $query = $query->whereRaw("FIND_IN_SET(?, p_lables)", $lables_arr);
             }
-            $S_PRODUCT_LABLES_result = $query->orderBy('id')->get()->toArray();
+            $S_PRODUCT_LABLES_result = $query->orderBy('sort')->get()->toArray();
             if (!empty($S_PRODUCT_LABLES_result)){
                 foreach ($S_PRODUCT_LABLES_result as $k=>$v){
                     $S_PRODUCT_LABLES_result[$k]['p_logo'] = config('config.admin_url') . $v['p_logo'];
@@ -188,7 +188,7 @@ class Web extends Model
         try {
             $query = DB::table('S_PRECEDENTS');
             $result = $query->where('is_del', '=', 0)
-                ->orderBy('id')
+                ->orderBy('sort')
                 ->get()->toArray();
             if (!empty($result)){
                 foreach ($result as $k=>$v){
@@ -209,7 +209,7 @@ class Web extends Model
             $query = DB::table('S_PRODECT_LABLES');
             $result = $query->where('is_del', '=', 0)
                 ->where('p_type', '=', $p_type)
-                ->orderBy('id')
+                ->orderBy('sort')
                 ->get()->toArray();
             return $result;
         } catch (\Exception $e) {
@@ -238,7 +238,7 @@ class Web extends Model
                     $query = $query->whereRaw("FIND_IN_SET(?, c_lables)", $p_type_arr);
                 }
             }
-            $S_COMPANY_result = $query->orderBy('id')->get()->toArray();
+            $S_COMPANY_result = $query->orderBy('sort')->get()->toArray();
             if (!empty($S_COMPANY_result)){
                 foreach ($S_COMPANY_result as $k=>$v){
                     $S_COMPANY_result[$k]['logo_url'] = config('config.admin_url') . $v['logo_url'];
@@ -290,7 +290,7 @@ class Web extends Model
             }else{
                 $query = $query->where('id','>',$id);
             }
-            $S_PRECEDENTS_result = $query->orderBy('id','DESC')->first();
+            $S_PRECEDENTS_result = $query->orderBy('sort','DESC')->first();
             if (!empty($S_PRECEDENTS_result)){
                 $S_PRECEDENTS_result['pr_img_url'] = config('config.admin_url') . $S_PRECEDENTS_result['pr_img_url'];
                 $S_PRECEDENTS_result['main_img_url'] = config('config.admin_url') . $S_PRECEDENTS_result['main_img_url'];
@@ -316,7 +316,7 @@ class Web extends Model
                 $query = $query->whereYear('n_open_date','=',$open_date);
             }
 
-            $result = $query->orderBy('id')->get()->toArray();
+            $result = $query->orderBy('sort')->get()->toArray();
             return $result;
         } catch (\Exception $e) {
             throw $e;
@@ -329,7 +329,7 @@ class Web extends Model
             $query = DB::table('S_NEWS')
                 ->where('is_del', '=', 0)
                 ->where('n_open_flg', '=', 1);
-            $result = $query->orderBy('n_open_date')->get()->toArray();
+            $result = $query->orderBy('sort')->get()->toArray();
             return $result;
         } catch (\Exception $e) {
             throw $e;
@@ -355,7 +355,7 @@ class Web extends Model
             $query = DB::table('S_TEACHER');
 
             $S_TEACHER_result = $query->where('is_del', '=', 0)
-                ->orderBy('id')
+                ->orderBy('sort')
                 ->get()->toArray();
             if (!empty($S_TEACHER_result)){
                 foreach ($S_TEACHER_result as $k=>$v){
@@ -433,7 +433,7 @@ class Web extends Model
             });
             $start = ($page - 1) * 6;
             $stop = 6;
-            $S_SEMINARS_EXHIBITIONS_result = $query->orderBy('id')->offset($start)->limit($stop)->get()->toArray();
+            $S_SEMINARS_EXHIBITIONS_result = $query->orderBy('sort')->offset($start)->limit($stop)->get()->toArray();
             if (!empty($S_SEMINARS_EXHIBITIONS_result)){
                 foreach ($S_SEMINARS_EXHIBITIONS_result as $k=>$v){
                     $S_SEMINARS_EXHIBITIONS_result[$k]['b_url'] = config('config.admin_url') . $v['b_url'];
@@ -451,7 +451,7 @@ class Web extends Model
             $query = DB::table('S_DOWNLOADS_CATEGORY');
             $result = $query->where('is_del', '=', 0)
                 ->where('open_flg', '=', 1)
-                ->orderBy('id')
+                ->orderBy('sort')
                 ->get()->toArray();
             return $result;
         } catch (\Exception $e) {
@@ -466,7 +466,7 @@ class Web extends Model
             $result = $query->where('is_del', '=', 0)
                 ->where('open_flg', '=', 1)
                 ->whereRaw("FIND_IN_SET(?, d_category)", [$id])
-                ->orderBy('id')
+                ->orderBy('sort')
                 ->get()->toArray();
             if (!empty($result)){
                 foreach ($result as $k=>$v){
@@ -525,7 +525,7 @@ class Web extends Model
             $query = DB::table('S_MANAGEMENT_SITE');
             $result = $query->where('is_del', '=', 0)
                 ->where('open_flg', '=', 1)
-                ->orderBy('id')
+                ->orderBy('sort')
                 ->get()->toArray();
             if (!empty($result)){
                 foreach ($result as $k=>$v){
