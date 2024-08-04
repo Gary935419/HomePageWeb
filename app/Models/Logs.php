@@ -5,6 +5,7 @@ namespace App\Models;
 class Logs extends Model
 {
     private $Lara;
+    public $SEQ_NO;
 
     public function __construct(&$Lara, $is_api=true)
     {
@@ -50,18 +51,12 @@ class Logs extends Model
     public function log_save($response, $TYPE)
     {
         // 本番環境ではログを出さない（個人情報が出力されてしまうため）
-        $params = \Input::all();
         if (config('app.env') != 'production') {
             $logData = array(
                 'LOG_TYPE' => 2,
                 'UNIQUE_KEY' => $this->SEQ_NO,
                 'IP' => $_SERVER['REMOTE_ADDR'],
-                'UUID' => empty($params['UUID']) ? '' : $params['UUID'],
                 'URI' => $_SERVER['REQUEST_URI'],
-                'METHOD' => '',
-                'HEADER' => '',
-                'REQUEST' => '',
-                'CLIENT_ID' => empty(session('USER_ID')) ? '' : session('USER_ID'),	// 管理画面の管理者アカウント
                 'TYPE' => $TYPE,
                 'RESPONSE' =>json_encode($response),
                 'CREATED_USER' => (isset($_SERVER['SERVER_ADDR'])) ? $_SERVER['SERVER_ADDR'] : $_SERVER['SERVER_NAME'],
