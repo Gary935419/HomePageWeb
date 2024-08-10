@@ -239,7 +239,9 @@ class WebSeminarController
         $Web = new Web($this);
         //講師Details
         $info_teacher = $Web->web_search_teacher_id_info($id);
-
+        if (empty($info_teacher)){
+            return redirect('/');
+        }
         $this->data['info_teacher'] = $info_teacher;
 
         return view('web/seminar/teacher_detail',$this->data);

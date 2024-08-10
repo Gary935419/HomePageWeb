@@ -12,7 +12,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="format-detection" content="telephone=no">
-	<title>飲酒シミュレーション｜東海電子株式会社</title>
+	<title>ダウンロードフォーム｜東海電子株式会社</title>
 	<meta name="keywords" content="アルコール検知器,アルコールチェッカー,インターロック,IT点呼システム,飲酒運転,遠隔地用アルコール測定器">
 	<meta name="description" content="東海電子株式会社は業務用アルコールチェッカー、インターロック、IT点呼システムなどの開発・製造・販売を行っております。全国のトラック、バス、タクシー業界などで採用実績のある、アルコール検知器をぜひご利用ください。">
 
@@ -31,17 +31,20 @@
     <script src="{{ asset('assets/web_js/matchHeight/matchHeight.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/web_js/slick/slick.css') }}">
     <script src="{{ asset('assets/web_js/slick/slick.min.js') }}"></script>
+    <script src="{{ asset('assets/web_js/slick/slick.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('assets/js/loader.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/ajax.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/common.js') }}"></script>
+
 	<!-- slick end -->
     <!-- colorbox -->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/web_js/colorbox/colorbox.css') }}">
     <script type="text/javascript" src="{{ asset('assets/web_js/colorbox/colorbox.min.js') }}"></script>
 	<!-- js end -->
     <link rel="icon" href="{{ asset('assets/icon/favicon.ico') }}">
-    <script type="text/javascript" src="{{ asset('assets/js/loader.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/ajax.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/common.js') }}"></script>
 	<!-- favicon end -->
-	<meta property="og:title" content="飲酒シミュレーション｜東海電子株式会社">
+	<meta property="og:title" content="ダウンロードフォーム｜東海電子株式会社">
 	<meta property="og:type" content="website">
 	<meta property="og:description" content="東海電子株式会社は業務用アルコールチェッカー、インターロック、IT点呼システムなどの開発・製造・販売を行っております。全国のトラック、バス、タクシー業界などで採用実績のある、アルコール検知器をぜひご利用ください。">
 	<meta property="og:url" content="https://www.tokai-denshi.co.jp/">
@@ -108,10 +111,10 @@
         <div class="page_wrap">
             <div class="page_ttl_wrap">
                 <div class="page_ttl_inner">
-                    <h2 class="page_ttl">飲酒シミュレーション</h2>
+                    <h2 class="page_ttl">ダウンロードフォーム</h2>
                     <ul class="pan">
                         <li><a href="/">トップページ</a></li>
-                        <li><span>飲酒シミュレーション</span></li>
+                        <li><span>ダウンロードフォーム</span></li>
                     </ul>
                 </div>
             </div>
@@ -121,169 +124,124 @@
 
 
         <!--cont01-->
-        <section class="area pb0">
+        <section class="area" id="index">
             <div class="inner">
-                <div class="white_box01">
-                    <h3 class="page_ttl_sub"><span>飲酒ウォッチ<span class="small">―お酒が抜ける時間がわかる―</span></span></h3>
-                    <div class="box1000">
-                        <div class="simulations_top">
+               <h3 class="page_ttl_sub"><span>ダウンロードフォーム</span></h3>
+
+               <div class="contact_wrap">
+
+                    <p class="txt">以下のダウンロードフォームよりメッセージを送信いただけますと、メッセージ送信後ダウンロードページが表示されます。</p>
+
+                    <div class="contact_inner">
                             <dl>
-                                <dt><img src="{{ asset('assets/web_img/simulations/img01.png') }}" alt="飲酒ウォッチ"></dt>
+                                <dt><span>ダウンロードするファイル</span></dt>
                                 <dd>
-                                    <h4 class="simulations_top_sub">今すぐアプリをダウンロード </h4>
-                                    <ul>
-                                        <li><a href="https://apps.apple.com/jp/app/id6450532761" target="_blank"><img src="{{ asset('assets/web_img/simulations/img02.png') }}" alt="飲酒ウォッチアプリ　App Storeからダウンロード"></a></li>
-                                        <li><a href="https://play.google.com/store/apps/details?id=com.alcwatch.td" target="_blank"><img src="{{ asset('assets/web_img/simulations/img03.png') }}" alt="飲酒ウォッチアプリをGoogle Playからダウンロード"></a></li>
-                                    </ul>
+                                    <p class="pdf_list_link_wrap"><span class="pdf_list_link">{{$info_download['p_name'] ?? ''}}</span></p>
                                 </dd>
                             </dl>
-                        </div>
+                            <dl>
+                                <dt><span class="hissu">お名前</span></dt>
+                                <dd>
+                                    <input type="text" name="user_name" id="user_name" placeholder="例）東海 太郎" />
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><span class="hissu">会社名</span></dt>
+                                <dd>
+                                    <input type="text" name="company_name" id="company_name" placeholder="例）東海電子株式会社" />
+                                </dd>
+                            </dl>
 
-                        <h3 class="page_ttl_sub"><span>業界初の飲酒シミュレーションアプリが登場！</span></h3>
-                        <p class="txt mb20">あなたのプロフィールや睡眠時間から、あなただけの結果がわかるウォッチ機能や、カメラでお酒のラベルを撮影するだけでわかるカメラ機能など、業界初の機能が満載！</p>
+                            <dl>
+                                <dt><span class="hissu">電話番号</span></dt>
+                                <dd>
+                                    <input type="text" name="phone_number" id="phone_number" placeholder="00-0000-0000" />
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt><span class="hissu">メールアドレス</span></dt>
+                                <dd>
+                                    <input type="text" name="email" id="email" placeholder="xxx@xxxx.co.jp" />
+                                </dd>
+                            </dl>
 
-                        <p class="bold_big txt_blue mb20">・飲みすぎたなぁ、お酒（アルコール）はいつ体から抜けるの？<br>・数時間後に車を運転するんだけど、大丈夫かな？</p>
+                            <div class="white_box03">
+                                <p class="form_pp_ttl">個人情報の取扱について</p>
+                                <p>ご提供いただくお客様の個人情報は、下記のために利用いたします。<br><br>
 
-                        <p class="txt mb20">と気になる時がありますよね。<br>今すぐ無料でダウンロードして『飲酒ウォッチ』でシミュレーションしてみましょう！</p>
+                                    <b>a) 製品カタログや資料の送付<br>
+                                    b) 製品のご紹介（担当よりお電話および訪問、デモンストレーション）<br>
+                                    c) セミナー、展示会、業界最新情報、新製品のご案内（電子メール、郵送、FAX）</b><br><br>
 
-                        <ul class="simulations_cap">
-                            <li><img src="{{ asset('assets/web_img/simulations/img04.png') }}" alt="飲酒ウォッチ"></li>
-                            <li><img src="{{ asset('assets/web_img/simulations/img05.png') }}" alt="飲酒ウォッチ"></li>
-                            <li><img src="{{ asset('assets/web_img/simulations/img06.png') }}" alt="飲酒ウォッチ"></li>
-                            <li><img src="{{ asset('assets/web_img/simulations/img07.png') }}" alt="飲酒ウォッチ"></li>
-                        </ul>
+                                および、上記以外に当社ホームページのプライバシーポリシーでお知らせしている目的に利用いたします。<br>
+                                また、本人の同意を得ず個人情報を第三者に開示・提供することはありません。<br>
+                                その他の個人情報の取扱については、<a href="/privacy/">プライバシーポリシー</a>をご参照ください。</p>
+                            </div>
+                            <input type="hidden" name="id" id="id" value="{{$id}}">
+                            <p class="txt form_bottom_txt">人情報の取扱について同意いただける場合は、<br>以下の「同意する」にチェックをし、「確認画面へ」ボタンをクリックしてください。</p>
 
-                        <p class="txt mb20">正しい知識を持たずに自分の代謝を過信し深夜に飲酒運転をしてしまうひとが多くいます。また、健康に害を及ぼす多量飲酒をしているひとも多くいます。本アプリは、飲酒運転を水際で止めるよう警告を促したり、過剰飲酒を控えるようメッセージを多く出しています。 本アプリは無償で配布しています。<br>大切な家族な友人で、お酒に問題を抱えているひとがいたら、ぜひ本アプリをお薦めください。</p>
+                            <p class="form_pp_check"><input name="agreement_flg" id="agreement_flg" type="checkbox" value="1" /> 同意する</p>
 
-                        <p class="txt">※当アプリによるシミュレーションは、あくまでも平均的な成人の場合のデータですので、実際の数値には個人差がございます。本計算値に基づいて飲酒運転を容認したり、法的資料の根拠になるものではありませんのでご注意ください。</p>
-
-
-
-
+                            <div class="form_btn_wrap">
+                                <div class="form_btn"><input type="button" id="submit_btn" value="確認画面へ" class="form_btn_send" /></div>
+                            </div>
                     </div>
                 </div>
-
-
-
-
-
             </div>
         </section>
         <!--//cont01-->
 
-
-        <!--cont02-->
-        <section class="area">
+        <section id="check" class="area" style="display: none">
             <div class="inner">
-                <div class="white_box01">
-                    <h3 class="page_ttl_sub"><span>WEB簡易飲酒シミュレーション</span></h3>
-                    <div class="box1000">
-                        <p class="txt mb40">飲酒量とアルコール血中濃度、消化時間の目安を計算する事ができます。あくまでも平均的な成人の場合のデータですので、体格や体質、体調により少ない飲酒量でも実際のアルコール血中濃度は高い場合がありますので、ご注意下さい。尚、本計算値に基づいて飲酒運転を容認したり、法的資料の証拠になるものではありません。 </p>
+                <h3 class="page_ttl_sub"><span>ダウンロードフォーム</span></h3>
 
-                        <div class="simulations_area" id="inputArea">
-                            <form name="input" action="./index.html" method="post">
-                                <dl class="simulations_area_top">
-                                    <dt><img src="{{ asset('assets/web_img/simulations/step01.png') }}" alt="step1"></dt>
-                                    <dd>
-                                        <div class="simulations_area_top_form">
-                                            <div class="simulations_area_top_form_L">
-                                                <p class="txt_big">体重を入力してください。</p>
-                                                <span class="txt_small txt_blue">[半角数字]</span>
-                                            </div>
-                                            <div class="simulations_area_top_form_R">
-                                                体重　<input name="weight"  size="6" maxlength="6" class="bace_form01 form_size150" type="text" id="SimulationWeight" />　kg
-                                            </div>
-                                        </div>
-                                    </dd>
-                                </dl>
+                <div class="contact_wrap">
 
-                                <dl class="simulations_area_top boder_none">
-                                    <dt><img src="{{ asset('assets/web_img/simulations/step02.png') }}" alt="step2"></dt>
-                                    <dd>
-                                        <p class="txt_big">どんなお酒をどのくらい飲むか、その量を入力してください。</p>
-                                        <span class="txt_small txt_blue">[半角数字]</span>
+                    <p class="txt txt_center">以下の内容でお間違い無ければ「送信する」ボタンをクリックしてください。<br>送信後ダウンロードページが表示されます。</p>
 
-                                        <table class="simulations_TB">
-                                            <tr>
-                                                <th><div><span>酒類</span></div></th>
-                                                <th><div><span>アルコール濃度</span></div></th>
-                                                <th><div><span>飲酒量</span></div></th>
-                                            </tr>
-                                            <tr>
-                                                <td>ビール</td>
-                                                <td>5 %</td>
-                                                <td><input name="beer"  size="6" maxlength="6" type="text" id="SimulationBeer" class="bace_form02 form_size100" />　ml</td>
-                                            </tr>
-                                            <tr>
-                                                <td>日本酒</td>
-                                                <td>16 %</td>
-                                                <td><input name="sake"  size="6" maxlength="6" type="text" id="SimulationSake" class="bace_form02 form_size100" />　ml</td>
-                                            </tr>
-                                            <tr>
-                                                <td>ウイスキー</td>
-                                                <td>45 %</td>
-                                                <td><input name="whiskey"  size="6" maxlength="6" type="text" id="SimulationWhiskey" class="bace_form02 form_size100" />　ml</td>
-                                            </tr>
-                                            <tr>
-                                                <td>ブランデー</td>
-                                                <td>43 %</td>
-                                                <td><input name="brandy"  size="6" maxlength="6" type="text" id="SimulationBrandy" class="bace_form02 form_size100" />　ml</td>
-                                            </tr>
-                                            <tr>
-                                                <td>焼酎</td>
-                                                <td>35 %</td>
-                                                <td><input name="shochu"  size="6" maxlength="6" type="text" id="SimulationShochu" class="bace_form02 form_size100" />　ml</td>
-                                            </tr>
-                                            <tr>
-                                                <td>ワイン</td>
-                                                <td>14 %</td>
-                                                <td><input name="wine"  size="6" maxlength="6" type="text" id="SimulationWine" class="bace_form02 form_size100" />　ml</td>
-                                            </tr>
-                                        </table>
+                    <div class="contact_inner">
+                        <dl>
+                            <dt><span class="hissu">お名前</span></dt>
+                            <dd><span class="form_check_wrap" id="user_name_show"></span></dd>
+                        </dl>
+                        <dl>
+                            <dt><span class="hissu">会社名</span></dt>
+                            <dd><span class="form_check_wrap" id="company_name_show"></span></dd>
+                        </dl>
 
+                        <dl>
+                            <dt><span class="hissu">電話番号</span></dt>
+                            <dd><span class="form_check_wrap" id="phone_number_show"></span></dd>
+                        </dl>
+                        <dl>
+                            <dt><span class="hissu">メールアドレス</span></dt>
+                            <dd><span class="form_check_wrap" id="email_show"></span></dd>
+                        </dl>
+                        <dl>
+                            <dt><span class="hissu">個人情報の取扱について</span></dt>
+                            <dd><span class="form_check_wrap">同意する</span></dd>
+                        </dl>
 
-
-                                    </dd>
-                                </dl>
-                                <p class="txt_big mb30 txt_center">入力しましたら、「計算」ボタンをクリックしてください。</p>
-                                <div class="btn_center"><a onClick="simulations_calculation()" title="計算" class="bace_btn02 btn_w300 txt_big">計算</a></div>
-                            </form>
+                        <div class="form_btn_wrap">
+                            <div class="form_btn"><input type="button" value="送信" onClick="send_download()" class="form_btn_send" /></div>
+                            <div class="form_btn"><input type="button" value="前画面に戻る" onClick="history_back()" class="form_btn_back"></div>
                         </div>
-
-
-                        <div id="simulation_result" class="simulation_result">
-                            <div id="inner_simulation">
-                              <h4><span>シミュレーション結果</span></h4>
-                              <dl class="list">
-                                <dt>アルコール容量</dt>
-                                <dd id="real_alc">合計 0 ml</dd>
-                              </dl>
-                              <dl class="list">
-                                <dt>飲酒量</dt>
-                                <dd id="drink_amount">合計 0 g</dd>
-                              </dl>
-                              <dl class="list">
-                                <dt>最高呼気中アルコール濃度</dt>
-                                <dd id="breath">0 mg/L</dd>
-                              </dl>
-                              <dl class="list">
-                                <dt>飲酒終了から分解までの最低時間</dt>
-                                <dd id="resolving_time">0 時間</dd>
-                              </dl>
-                            </div>
-                          </div>
-
-
                     </div>
+
+
                 </div>
-
-
-
-
 
             </div>
         </section>
-        <!--//cont02-->
+
+
+
+
+
+
+
+
+
 
 
 
@@ -444,8 +402,7 @@
                     <li><a href="https://tokai-denshi.satori.site/record?_gl=1*62n1og*_ga*MTY3MDE0MzA2OS4xNjc1OTkwNTc4*_ga_6M0CDTKZRM*MTcxNDI4Mzg1My43OC4xLjE3MTQyODQ3MTAuMjEuMC4w" target="_blank"><img src="{{ asset('assets/web_img/common/mailmaga_banner.png') }}" alt="メールマガジン登録"></a></li>
                     <li><a href="http://j-bac.org/" target="_blank"><img src="{{ asset('assets/web_img/common/alk_banner.png') }}" alt="アルコール検知器協議会"></a></li>
                     <li class="footer_sns"><a href="https://twitter.com/tokai_denshi" target="_blank"><img src="{{ asset('assets/web_img/common/footer_x.png') }}" alt="東海電子公式X"></a></li>
-                    <li class="footer_sns"><a href="https://www.youtube.com/@tokaidenshi" target="_blank"><img src="{{ asset('assets/web_img/common/footer_youtube.png') }}" alt="東海電子公式YouTube"></a></li>
-                    <li class="footer_sns"><a href="https://www.instagram.com/tokai_denshi/" target="_blank"><img src="{{ asset('assets/web_img/common/footer_insta.png') }}" alt="東海電子公式Instagram"></a></li>
+                    <li class="footer_sns"><a href="https://www.youtube.com/@tokaidenshi" target="_blank"><img src="{{ asset('assets/web_img/common/footer_youtube.png') }}'Instagram"></a></li>
                 </ul>
 
             </div>
@@ -461,12 +418,6 @@
         <!--//footer-->
 
 
-
-
-
-
-
-
 		<div id="page_top">
 			<span></span>
 		</div>
@@ -475,10 +426,57 @@
 	</div>
 	<!-- wrapper end -->
     <script>
-        function isValidNumber(number) {
+        $(function() {
+            $('#submit_btn').click(function() {
+                var errors_text = "";
+                if ($('#user_name').val() == "") {
+                    errors_text = errors_text + (strlen(errors_text) > 0 ? "<br/>" : "") + "お名前を入力してください。";
+                    alert(errors_text);
+                    return false;
+                }
+                if ($('#company_name').val() == "") {
+                    errors_text = errors_text + (strlen(errors_text) > 0 ? "<br/>" : "") + "会社名を入力してください。";
+                    alert(errors_text);
+                    return false;
+                }
+                if ($('#phone_number').val() == "") {
+                    errors_text = errors_text + (strlen(errors_text) > 0 ? "<br/>" : "") + "電話番号を入力してください。";
+                    alert(errors_text);
+                    return false;
+                }
+                if ($('#phone_number').val() != "" && !isValidPhoneNumber($('#phone_number').val())) {
+                    errors_text = errors_text + (strlen(errors_text) > 0 ? "<br/>" : "") + "電話番号は正しい番号を入力してください。";
+                    alert(errors_text);
+                    return false;
+                }
+                if ($('#email').val() == "") {
+                    errors_text = errors_text + (strlen(errors_text) > 0 ? "<br/>" : "") + "メールを入力してください。";
+                    alert(errors_text);
+                    return false;
+                }
+                if ($('#email').val() != "" && !isValidEmail($('#email').val())) {
+                    errors_text = errors_text + (strlen(errors_text) > 0 ? "<br/>" : "") + "メールは正しい番号を入力してください。";
+                    alert(errors_text);
+                    return false;
+                }
+                if ($("input[name='agreement_flg']:checked").val() != 1) {
+                    errors_text = errors_text + (strlen(errors_text) > 0 ? "<br/>" : "") + "同意するを入力してください。";
+                    alert(errors_text);
+                    return false;
+                }
+
+                $('#user_name_show').text($('#user_name').val());
+                $('#company_name_show').text($('#company_name').val());
+                $('#phone_number_show').text($('#phone_number').val());
+                $('#email_show').text($('#email').val());
+                $('#index').hide();
+                $('#check').show();
+            });
+        });
+        function isValidPhoneNumber(phone) {
             try {
-                var regex = /^[0-9]*$/;
-                if (regex.test(number)) {
+                var regex = /^0\d{1,4}-\d{1,4}-\d{4}$/;
+                if (regex.test(phone)) {
                     return true;
                 } else {
                     return false;
@@ -487,64 +485,34 @@
                 return false;
             }
         }
-        function simulations_calculation() {
-            var errors_text = "";
-            if ($('#SimulationWeight').val() == "" || !isValidNumber($('#SimulationWeight').val())) {
-                errors_text = errors_text + (strlen(errors_text) > 0 ? "<br/>" : "") + "体重を正しい入力してください。";
-                alert(errors_text);
+        function isValidEmail(email) {
+            try {
+                var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (regex.test(email)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } catch (err) {
                 return false;
             }
-
-            if(($('#SimulationBeer').val() == "" || !isValidNumber($('#SimulationBeer').val())) && ($('#SimulationSake').val() == "" || !isValidNumber($('#SimulationSake').val()))
-                && ($('#SimulationWhiskey').val() == "" || !isValidNumber($('#SimulationWhiskey').val())) && ($('#SimulationBrandy').val() == "" || !isValidNumber($('#SimulationBrandy').val()))
-                && ($('#SimulationShochu').val() == "" || !isValidNumber($('#SimulationShochu').val())) && ($('#SimulationWine').val() == "" || !isValidNumber($('#SimulationWine').val()))){
-                if ($('#SimulationBeer').val() == "" || !isValidNumber($('#SimulationBeer').val())) {
-                    errors_text = errors_text + (strlen(errors_text) > 0 ? "<br/>" : "") + "ビールを正しい入力してください。";
-                    alert(errors_text);
-                    return false;
-                }
-                if ($('#SimulationSake').val() == "" || !isValidNumber($('#SimulationSake').val())) {
-                    errors_text = errors_text + (strlen(errors_text) > 0 ? "<br/>" : "") + "日本酒を正しい入力してください。";
-                    alert(errors_text);
-                    return false;
-                }
-                if ($('#SimulationWhiskey').val() == "" || !isValidNumber($('#SimulationWhiskey').val())) {
-                    errors_text = errors_text + (strlen(errors_text) > 0 ? "<br/>" : "") + "ウイスキーを正しい入力してください。";
-                    alert(errors_text);
-                    return false;
-                }
-                if ($('#SimulationBrandy').val() == "" || !isValidNumber($('#SimulationBrandy').val())) {
-                    errors_text = errors_text + (strlen(errors_text) > 0 ? "<br/>" : "") + "ブランデーを正しい入力してください。";
-                    alert(errors_text);
-                    return false;
-                }
-                if ($('#SimulationShochu').val() == "" || !isValidNumber($('#SimulationShochu').val())) {
-                    errors_text = errors_text + (strlen(errors_text) > 0 ? "<br/>" : "") + "焼酎を正しい入力してください。";
-                    alert(errors_text);
-                    return false;
-                }
-                if ($('#SimulationWine').val() == "" || !isValidNumber($('#SimulationWine').val())) {
-                    errors_text = errors_text + (strlen(errors_text) > 0 ? "<br/>" : "") + "ワインを正しい入力してください。";
-                    alert(errors_text);
-                    return false;
-                }
-            }
-
-            var url = "/webapi/simulations/simulations_calculation";
+        }
+        function history_back() {
+            $('#index').show();
+            $('#check').hide();
+        }
+        function send_download() {
+            var url = "/webapi/download/downloadproducts_from_add";
             var params = {};
-            params.SimulationWeight = $("#SimulationWeight").val();
-            params.SimulationBeer = $("#SimulationBeer").val();
-            params.SimulationSake = $("#SimulationSake").val();
-            params.SimulationWhiskey = $("#SimulationWhiskey").val();
-            params.SimulationBrandy = $("#SimulationBrandy").val();
-            params.SimulationShochu = $("#SimulationShochu").val();
-            params.SimulationWine = $("#SimulationWine").val();
+            params.id = $("#id").val();
+            params.user_name = $("#user_name").val();
+            params.company_name = $("#company_name").val();
+            params.phone_number = $("#phone_number").val();
+            params.email = $("#email").val();
+            params.agreement_flg = $("#agreement_flg").val();
             ajax.post(url, params, function(data) {
                 if (data['RESULT'] === "OK") {
-                    $("#real_alc").text("合計 "+data['DATA']['real_alc']+" ml");
-                    $("#drink_amount").text("合計 "+data['DATA']['drink_amount']+" g");
-                    $("#breath").text(data['DATA']['breath']+" mg/L");
-                    $("#resolving_time").text(data['DATA']['resolving_time']+" 時間");
+                    location.href = "/downloadproducts_thanks?id=" + $("#id").val() + "&&phone_number=" + $("#phone_number").val() + "&&email=" + $("#email").val();
                 }else {
                     alert(alert['MESSAGE']);
                     return false;

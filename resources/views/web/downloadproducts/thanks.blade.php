@@ -2,27 +2,41 @@
 <html lang="ja">
 <head>
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-M6PG4C3');</script>
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-M6PG4C3');</script>
     <!-- End Google Tag Manager -->
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="format-detection" content="telephone=no">
-	<title>ニュースリリース｜東海電子株式会社</title>
-	<meta name="keywords" content="アルコール検知器,アルコールチェッカー,インターロック,IT点呼システム,飲酒運転,遠隔地用アルコール測定器">
-	<meta name="description" content="東海電子株式会社は業務用アルコールチェッカー、インターロック、IT点呼システムなどの開発・製造・販売を行っております。全国のトラック、バス、タクシー業界などで採用実績のある、アルコール検知器をぜひご利用ください。">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <title>ダウンロードフォーム｜東海電子株式会社</title>
+    <meta name="keywords"
+          content="アルコール検知器,アルコールチェッカー,インターロック,IT点呼システム,飲酒運転,遠隔地用アルコール測定器">
+    <meta name="description"
+          content="東海電子株式会社は業務用アルコールチェッカー、インターロック、IT点呼システムなどの開発・製造・販売を行っております。全国のトラック、バス、タクシー業界などで採用実績のある、アルコール検知器をぜひご利用ください。">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
-	<!-- webfont end -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500;600;700;900&display=swap"
+          rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100;300;400;500;700;800;900&display=swap"
+          rel="stylesheet">
+    <!-- webfont end -->
     <link rel="stylesheet" href="{{ asset('assets/web_css/base.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/web_css/style.css') }}">
     <!-- css end -->
@@ -38,7 +52,7 @@
     <!-- js end -->
     <link rel="icon" href="{{ asset('assets/icon/favicon.ico') }}">
     <!-- favicon end -->
-    <meta property="og:title" content="ニュースリリース｜東海電子株式会社">
+    <meta property="og:title" content="ダウンロードフォーム｜東海電子株式会社">
     <meta property="og:type" content="website">
     <meta property="og:description"
           content="東海電子株式会社は業務用アルコールチェッカー、インターロック、IT点呼システムなどの開発・製造・販売を行っております。全国のトラック、バス、タクシー業界などで採用実績のある、アルコール検知器をぜひご利用ください。">
@@ -46,19 +60,8 @@
     <meta property="og:image" content="https://www.tokai-denshi.co.jp/img/ogp.jpg">
     <meta property="og:site_name" content="アルコールチェッカー（検知器）、インターロックなら東海電子株式会社">
     <!-- ogp end -->
-    <style>
-        .editor_s ul {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
-        .editor_s ol {
-            list-style-type: decimal !important;
-            margin-left: 20px;
-        }
-        .editor_s li {
-            list-style-position: inside;
-        }
-    </style>
+
+
 </head>
 
 
@@ -121,11 +124,10 @@
     <div class="page_wrap">
         <div class="page_ttl_wrap">
             <div class="page_ttl_inner">
-                <h2 class="page_ttl">ニュースリリース</h2>
+                <h2 class="page_ttl">ダウンロードフォーム</h2>
                 <ul class="pan">
                     <li><a href="/">トップページ</a></li>
-                    <li><a href="/topics/">ニュースリリース一覧</a></li>
-                    <li><span>{{$info_news['n_title'] ?? ''}}</span></li>
+                    <li><span>ダウンロードフォーム</span></li>
                 </ul>
             </div>
         </div>
@@ -135,17 +137,27 @@
 
     <!--cont01-->
     <section class="area">
-        <div class="inner inner800">
-            <h3 class="page_ttl_sub">
-                <span>{{$info_news['n_title'] ?? ''}}</span></h3>
+        <div class="inner">
+            <h3 class="page_ttl_sub"><span>ダウンロードフォーム</span></h3>
+            @if(!empty($info_downloads_history))
+                <div class="contact_wrap">
 
-            <div class="news_detail_wrap">
-                <p class="news_day">{{$info_news['n_open_date'] ?? ''}}</p>
-                <div class="editor_s">
-                    {!! $info_news['n_contents'] ?? '' !!}
+                    <p class="txt txt_center">
+                        以下の「PDFファイルをダウンロードする」ボタンよりダウンロードしてください。</p>
+                    <div class="down_load_pdf_wrap"><p class="pdf_list_link_wrap"><span
+                                class="pdf_list_link">{{$info_downloads_history['d_file_name'] ?? ''}}</span></p></div>
+                    <div class="bace_btn01"><a href="{{$info_downloads_history['d_file_url'] ?? ''}}" target="_blank"><span
+                                class="arrow arrow-right">PDFファイルをダウンロードする</span></a></div>
+
+
                 </div>
-            </div>
-            <p class="go_back"><a href="/topics">ニュースリリース一覧へ戻る</a></p>
+            @else
+                <div class="contact_wrap">
+
+                    <p class="txt txt_center">データエラー。</p>
+
+                </div>
+            @endif
 
 
         </div>
@@ -328,15 +340,15 @@
                        target="_blank"><img src="{{ asset('assets/web_img/common/mailmaga_banner.png') }}"
                                             alt="メールマガジン登録"></a></li>
                 <li><a href="http://j-bac.org/" target="_blank"><img
-                                src="{{ asset('assets/web_img/common/alk_banner.png') }}" alt="アルコール検知器協議会"></a>
+                            src="{{ asset('assets/web_img/common/alk_banner.png') }}" alt="アルコール検知器協議会"></a>
                 </li>
                 <li class="footer_sns"><a href="https://twitter.com/tokai_denshi" target="_blank"><img
-                                src="{{ asset('assets/web_img/common/footer_x.png') }}" alt="東海電子公式X"></a></li>
+                            src="{{ asset('assets/web_img/common/footer_x.png') }}" alt="東海電子公式X"></a></li>
                 <li class="footer_sns"><a href="https://www.youtube.com/@tokaidenshi" target="_blank"><img
-                                src="{{ asset('assets/web_img/common/footer_youtube.png') }}" alt="東海電子公式YouTube"></a>
+                            src="{{ asset('assets/web_img/common/footer_youtube.png') }}" alt="東海電子公式YouTube"></a>
                 </li>
                 <li class="footer_sns"><a href="https://www.instagram.com/tokai_denshi/" target="_blank"><img
-                                src="{{ asset('assets/web_img/common/footer_insta.png') }}" alt="東海電子公式Instagram"></a>
+                            src="{{ asset('assets/web_img/common/footer_insta.png') }}" alt="東海電子公式Instagram"></a>
                 </li>
             </ul>
 
@@ -345,32 +357,27 @@
     </footer>
     <div class="footer_bottom">
         <div class="inner">
-            <p class="footer_logo"><a href="/"><img src="{{ asset('assets/web_img/common/footer_logo.png') }}" alt="東海電子株式会社"></a></p>
-                <p class="copy">Copyright&copy; Tokai Denshi inc. All Rights Reserved.</p>
-            </div>
+            <p class="footer_logo"><a href="/"><img src="{{ asset('assets/web_img/common/footer_logo.png') }}"
+                                                            alt="東海電子株式会社"></a></p>
+            <p class="copy">Copyright&copy; Tokai Denshi inc. All Rights Reserved.</p>
         </div>
+    </div>
 
-        <!--//footer-->
-
-
-
+    <!--//footer-->
 
 
+    <div id="page_top">
+        <span></span>
+    </div>
+    <!-- page_top end -->
 
+</div>
+<!-- wrapper end -->
 
-
-		<div id="page_top">
-			<span></span>
-		</div>
-		<!-- page_top end -->
-
-	</div>
-	<!-- wrapper end -->
-
-    <script src="https://ssl.google-analytics.com/urchin.js" type="text/javascript"></script>
-    <script type="text/javascript">
-      _uacct="UA-3439179-2";
-      urchinTracker();
-    </script>
+<script src="https://ssl.google-analytics.com/urchin.js" type="text/javascript"></script>
+<script type="text/javascript">
+    _uacct = "UA-3439179-2";
+    urchinTracker();
+</script>
 </body>
 </html>

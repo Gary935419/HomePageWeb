@@ -60,8 +60,19 @@
     <meta property="og:image" content="https://www.tokai-denshi.co.jp/img/ogp.jpg">
     <meta property="og:site_name" content="アルコールチェッカー（検知器）、インターロックなら東海電子株式会社">
     <!-- ogp end -->
-
-
+    <style>
+        .editor_s ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .editor_s ol {
+            list-style-type: decimal !important;
+            margin-left: 20px;
+        }
+        .editor_s li {
+            list-style-position: inside;
+        }
+    </style>
 </head>
 
 
@@ -163,8 +174,9 @@
                         @endif
                     </ul>
                 </div>
-
-                {!! $info_precedents['pr_contents'] ?? '' !!}
+                <div class="editor_s">
+                    {!! $info_precedents['pr_contents'] ?? '' !!}
+                </div>
 
             </div>
 

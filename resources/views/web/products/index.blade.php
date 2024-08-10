@@ -46,6 +46,9 @@
     <link rel="stylesheet" href="{{ asset('assets/web_js/slick/slick.css') }}">
     <script src="{{ asset('assets/web_js/slick/slick.min.js') }}"></script>
     <!-- slick end -->
+    <script type="text/javascript" src="{{ asset('assets/js/loader.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/ajax.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/common.js') }}"></script>
     <!-- colorbox -->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/web_js/colorbox/colorbox.css') }}">
     <script type="text/javascript" src="{{ asset('assets/web_js/colorbox/colorbox.min.js') }}"></script>
@@ -142,7 +145,7 @@
                 @if(!empty($info_product_lables))
                     @foreach($info_product_lables as $v)
                         <li onclick="select_this({{$v['id']}})">
-                            <span class="{{$id == $v['id'] ? 'on' : ''}}">#{{$v['pr_name'] ?? ''}}</span>
+                            <span>#{{$v['pr_name'] ?? ''}}</span>
                         </li>
                     @endforeach
                 @endif
@@ -155,7 +158,7 @@
 
     <!--cont02-->
     <section class="area">
-        <div class="inner">
+        <div class="inner" id="index_productarea">
 
             @if(!empty($info_product))
                 @foreach($info_product as $v)
@@ -167,8 +170,13 @@
                                 <p class="txt">{{$v['p_contents'] ?? ''}}</p>
                                 <ul class="products_detail_btn">
                                     @if(!empty($v['p_pdf_url']))
-                                        <li><a href="{{$v['p_pdf_url']}}" class="bace_btn02" target="_blank"><span
-                                                    class="products_detail_btn01">製品カタログ</span></a></li>
+                                        @if(!empty($v['p_flg']))
+                                            <li><a onclick="select_this_down({{$v['id']}})" class="bace_btn02" target="_blank"><span
+                                                        class="products_detail_btn01">製品カタログ</span></a></li>
+                                        @else
+                                            <li><a href="{{$v['p_pdf_url']}}" class="bace_btn02" target="_blank"><span
+                                                        class="products_detail_btn01">製品カタログ</span></a></li>
+                                        @endif
                                     @endif
                                     @if(!empty($v['p_video_url']))
                                         <li><a href="{{$v['p_video_url']}}" class="bace_btn02" target="_blank"><span
@@ -195,6 +203,8 @@
                         </dl>
                     </div>
                 @endforeach
+            @else
+                <div>該当する製品・サービスはございません</div>
             @endif
 
             <div class="cont_fot_btn_wrap">
@@ -416,23 +426,101 @@
 </div>
 <!-- wrapper end -->
 <script>
-    var items = document.querySelectorAll('#product_lables li');
+    var items = document.querySelectorAll('#product_lables span');
     items.forEach(function (item) {
         item.addEventListener('click', function () {
-            items.forEach(function (li) {
-                li.classList.remove('on');
-            });
-            this.classList.add('on');
+            if (this.classList.contains('on')) {
+                this.classList.remove('on');
+            } else {
+                items.forEach(function (span) {
+                    span.classList.remove('on');
+                });
+                this.classList.add('on');
+            }
         });
     });
 </script>
 <script>
+    function select_this_down(id) {
+        location.href = "/downloadproducts/" + id;
+    }
     function select_this(id) {
-        if (id == $("#hide_lableid").val()) {
-            location.href = "/products";
-        } else {
-            location.href = "/products?id=" + id;
+        if(id == $('#hide_lableid').val()){
+            $('#hide_lableid').val("");
+        }else {
+            $('#hide_lableid').val(id);
         }
+        var url = "/webapi/products/products_search";
+        var params = {};
+        params.id = $('#hide_lableid').val();
+        ajax.post(url, params, function(data) {
+            if (data['RESULT'] === "OK") {
+                $('#index_productarea').empty();
+                if(data['DATA'].length === 0){
+                    var itemHtml = `<div>該当する製品・サービスはございません</div>`;
+                    $('#index_productarea').append(itemHtml);
+                }else {
+                    $.each(data['DATA'], function(index, item) {
+                        var itemHtml = `
+                        <div class="white_box01 short_box">
+                        <dl class="products_detail">
+                            <dt>
+                                <p class="products_detail_logo"><img src="${item.p_logo}" alt="${item.p_name}"></p>
+                                <p class="txt">${item.p_contents}</p>
+                                <ul class="products_detail_btn">`;
+                        if(data['DATA'][index]['p_pdf_url']){
+                            if(data['DATA'][index]['p_flg']){
+                                itemHtml += `
+                                    <li>
+                                        <a onclick="select_this_down(${item.id})" class="bace_btn02" target="_blank">
+                                            <span class="products_detail_btn01">製品カタログ</span>
+                                        </a>
+                                    </li>`;
+                            }else {
+                                itemHtml += `
+                                    <li>
+                                        <a href="${item.p_pdf_url}" class="bace_btn02" target="_blank">
+                                            <span class="products_detail_btn01">製品カタログ</span>
+                                        </a>
+                                    </li>`;
+                            }
+                        }
+                        if(data['DATA'][index]['p_video_url']){
+                            itemHtml += `
+                                    <li>
+                                        <a href="${item.p_pdf_url}" class="bace_btn02" target="_blank">
+                                            <span class="products_detail_btn02">製品動画</span>
+                                        </a>
+                                    </li>`;
+                        }
+                        if(data['DATA'][index]['p_special_weburl']){
+                            itemHtml += `
+                                    <li>
+                                        <a href="${item.p_special_weburl}" class="bace_btn02" target="_blank">
+                                            <span class="products_detail_btn03">製品特設サイト</span>
+                                        </a>
+                                    </li>`;
+                        }
+                        itemHtml += `</ul><ul class="products_detail_tag">`;
+                        if(data['DATA'][index]['PRODUCT_LABLES_ARR']){
+                            $.each(data['DATA'][index]['PRODUCT_LABLES_ARR'], function(indexx, itemm) {
+                                itemHtml += `<li>#${itemm}</li>`;
+                            })
+                        }
+
+                        itemHtml += `</ul>
+                             </dt>
+                        <dd>
+                        <div class="products_detail_img"><img src="${item.p_main_img}" alt="${item.p_name}"></div>
+                                </dd>
+                            </dl>
+                        </div>
+                        `;
+                        $('#index_productarea').append(itemHtml);
+                    });
+                }
+            }
+        });
     }
 </script>
 <script src="https://ssl.google-analytics.com/urchin.js" type="text/javascript"></script>

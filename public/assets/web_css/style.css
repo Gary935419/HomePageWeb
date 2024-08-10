@@ -1912,7 +1912,7 @@ input.bace_form02 {
 .imp_ttl span::before {
     position: absolute;
     content: "";
-    background: url(../img/index/news_i.png) no-repeat;
+    background: url(../web_img/index/news_i.png) no-repeat;
     width: 15px;
     height: 14px;
     background-size: 100%;
@@ -4466,7 +4466,7 @@ input.bace_form02 {
     font-size: 120%;
     position: relative;
     margin-bottom: 20px;
-    margin-top: 80px;
+    margin-top: 20px;
 }
 
 .fuki::before {
@@ -4526,7 +4526,7 @@ input.bace_form02 {
     .fuki {
         font-size: 100%;
         margin-bottom: 20px;
-        margin-top: 80px;
+        margin-top: 20px;
     }
 
 

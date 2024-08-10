@@ -12,6 +12,9 @@ class WebTopController
         $Web = new Web($this);
 
         $params = array();
+        $open_date_def = date('Y-m-d',time());
+        $params['open_date_def'] = $open_date_def;
+
         //新着情報
         $params['n_important_flg'] = 1;
         $info_important_news = $Web->web_search_news($params);
@@ -31,6 +34,46 @@ class WebTopController
 
         //企業
         $info_company = $Web->web_search_company();
+        $info_company_count = $Web->web_search_company_count();
+        if ($info_company_count >= 14 && $info_company_count < 21){
+            $info_company_count_ave = floor($info_company_count / 2);
+            $info_company_new = array();
+            $info_company_new1 = array();
+            $info_company_new2 = array();
+            foreach ($info_company as $k=>$v){
+                if ($k < $info_company_count_ave){
+                    $info_company_new[] = $v;
+                }
+                if ($k < $info_company_count_ave * 2 && $k >= $info_company_count_ave){
+                    $info_company_new1[] = $v;
+                }
+            }
+            $info_company = $info_company_new;
+            $info_company1 = $info_company_new1;
+            $info_company2 = $info_company_new2;
+        }elseif ($info_company_count >= 21){
+            $info_company_count_ave = floor($info_company_count / 3);
+            $info_company_new = array();
+            $info_company_new1 = array();
+            $info_company_new2 = array();
+            foreach ($info_company as $k=>$v){
+                if ($k < $info_company_count_ave){
+                    $info_company_new[] = $v;
+                }
+                if ($k < $info_company_count_ave * 2 && $k >= $info_company_count_ave){
+                    $info_company_new1[] = $v;
+                }
+                if ($k < $info_company_count_ave * 3 && $k >= $info_company_count_ave * 2){
+                    $info_company_new2[] = $v;
+                }
+            }
+            $info_company = $info_company_new;
+            $info_company1 = $info_company_new1;
+            $info_company2 = $info_company_new2;
+        }else{
+            $info_company1 = array();
+            $info_company2 = array();
+        }
 
         //セミナー
         $date = date('Y-m-d',time());
@@ -102,6 +145,8 @@ class WebTopController
 
         $this->data['info_seminars_exhibitions'] = $info_seminars_exhibitions;
         $this->data['info_company'] = $info_company;
+        $this->data['info_company1'] = $info_company1;
+        $this->data['info_company2'] = $info_company2;
         $this->data['info_product_banners'] = $info_product_banners;
         $this->data['info_important_news'] = $info_important_news;
         $this->data['info_unimportant_news'] = $info_unimportant_news;

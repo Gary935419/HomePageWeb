@@ -136,63 +136,65 @@
                     @if($info_seminars)
                         @foreach($info_seminars as $v)
                             <li class="seminar_fix">
-                                <div class="seminar_box_wrap">
-                                    <dl>
-                                        <dt class="img"><img src="{{$v['b_url'] ?? ''}}"></dt>
-                                        <dd>
-                                            <div class="seminar_day">
-                                                <div class="day">
-                                                    @if(!empty($v['exhibition_dates1_date']))
-                                                        {{$v['exhibition_dates1_date']}}<span>({{$v['exhibition_dates1_week']}})</span>
-                                                    @endif
-                                                    @if(!empty($v['exhibition_dates2_date']))
-                                                        {{$v['exhibition_dates2_date']}}<span>({{$v['exhibition_dates2_week']}})</span>
-                                                    @endif
-                                                    @if(!empty($v['exhibition_dates3_date']))
-                                                        {{$v['exhibition_dates3_date']}}<span>({{$v['exhibition_dates3_week']}})</span>
-                                                    @endif
-                                                    @if(!empty($v['exhibition_dates4_date']))
-                                                        {{$v['exhibition_dates4_date']}}<span>({{$v['exhibition_dates4_week']}})</span>
-                                                    @endif
-                                                    @if(!empty($v['exhibition_dates5_date']))
-                                                        {{$v['exhibition_dates5_date']}}<span>({{$v['exhibition_dates5_week']}})</span>
-                                                    @endif
-                                                    @if(!empty($v['exhibition_dates6_date']))
-                                                        {{$v['exhibition_dates6_date']}}<span>({{$v['exhibition_dates6_week']}})</span>
-                                                    @endif
-                                                    @if(!empty($v['exhibition_dates7_date']))
-                                                        {{$v['exhibition_dates7_date']}}<span>({{$v['exhibition_dates7_week']}})</span>
-                                                    @endif
-                                                    @if(!empty($v['exhibition_dates8_date']))
-                                                        {{$v['exhibition_dates8_date']}}<span>({{$v['exhibition_dates8_week']}})</span>
-                                                    @endif
-                                                    @if(!empty($v['exhibition_dates9_date']))
-                                                        {{$v['exhibition_dates9_date']}}<span>({{$v['exhibition_dates9_week']}})</span>
-                                                    @endif
-                                                    @if(!empty($v['exhibition_dates10_date']))
-                                                        {{$v['exhibition_dates10_date']}}<span>({{$v['exhibition_dates10_week']}})</span>
-                                                    @endif
+                                <a href="{{$v['apply_url'] ?? ''}}">
+                                    <div class="seminar_box_wrap">
+                                        <dl>
+                                            <dt class="img"><img src="{{$v['b_url'] ?? ''}}"></dt>
+                                            <dd>
+                                                <div class="seminar_day">
+                                                    <div class="day">
+                                                        @if(!empty($v['exhibition_dates1_date']))
+                                                            {{$v['exhibition_dates1_date']}}<span>({{$v['exhibition_dates1_week']}})</span>
+                                                        @endif
+                                                        @if(!empty($v['exhibition_dates2_date']))
+                                                            {{$v['exhibition_dates2_date']}}<span>({{$v['exhibition_dates2_week']}})</span>
+                                                        @endif
+                                                        @if(!empty($v['exhibition_dates3_date']))
+                                                            {{$v['exhibition_dates3_date']}}<span>({{$v['exhibition_dates3_week']}})</span>
+                                                        @endif
+                                                        @if(!empty($v['exhibition_dates4_date']))
+                                                            {{$v['exhibition_dates4_date']}}<span>({{$v['exhibition_dates4_week']}})</span>
+                                                        @endif
+                                                        @if(!empty($v['exhibition_dates5_date']))
+                                                            {{$v['exhibition_dates5_date']}}<span>({{$v['exhibition_dates5_week']}})</span>
+                                                        @endif
+                                                        @if(!empty($v['exhibition_dates6_date']))
+                                                            {{$v['exhibition_dates6_date']}}<span>({{$v['exhibition_dates6_week']}})</span>
+                                                        @endif
+                                                        @if(!empty($v['exhibition_dates7_date']))
+                                                            {{$v['exhibition_dates7_date']}}<span>({{$v['exhibition_dates7_week']}})</span>
+                                                        @endif
+                                                        @if(!empty($v['exhibition_dates8_date']))
+                                                            {{$v['exhibition_dates8_date']}}<span>({{$v['exhibition_dates8_week']}})</span>
+                                                        @endif
+                                                        @if(!empty($v['exhibition_dates9_date']))
+                                                            {{$v['exhibition_dates9_date']}}<span>({{$v['exhibition_dates9_week']}})</span>
+                                                        @endif
+                                                        @if(!empty($v['exhibition_dates10_date']))
+                                                            {{$v['exhibition_dates10_date']}}<span>({{$v['exhibition_dates10_week']}})</span>
+                                                        @endif
+                                                    </div>
+                                                    <div class="time">{{$v['opening_times'] ?? ''}}
+                                                        - {{$v['closeing_times'] ?? ''}}</div>
                                                 </div>
-                                                <div class="time">{{$v['opening_times'] ?? ''}}
-                                                    - {{$v['closeing_times'] ?? ''}}</div>
-                                            </div>
-                                            <p class="txt">{{$v['title'] ?? ''}}</p>
-                                            <ul class="seminar_tag">
-                                                @if(!empty($v['SEMINARS_EXHIBITIONS_LABLES_ARR']))
-                                                    @foreach($v['SEMINARS_EXHIBITIONS_LABLES_ARR'] as $vv)
-                                                        <li>{{$vv}}</li>
-                                                    @endforeach
+                                                <p class="txt">{{$v['title'] ?? ''}}</p>
+                                                <ul class="seminar_tag">
+                                                    @if(!empty($v['SEMINARS_EXHIBITIONS_LABLES_ARR']))
+                                                        @foreach($v['SEMINARS_EXHIBITIONS_LABLES_ARR'] as $vv)
+                                                            <li>{{$vv}}</li>
+                                                        @endforeach
+                                                    @endif
+                                                </ul>
+                                                @if($v['address_flg'] == 0)
+                                                    <p class="seminar_place seminar_place_online">オンライン</p>
+                                                @else
+                                                    <p class="seminar_place seminar_place_out">{{$v['address_info'] ?? ''}}</p>
                                                 @endif
-                                            </ul>
-                                            @if($v['address_flg'] == 0)
-                                                <p class="seminar_place seminar_place_online">オンライン</p>
-                                            @else
-                                                <p class="seminar_place seminar_place_out">{{$v['address_info'] ?? ''}}</p>
-                                            @endif
 
-                                        </dd>
-                                    </dl>
-                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </a>
                             </li>
                         @endforeach
                     @endif

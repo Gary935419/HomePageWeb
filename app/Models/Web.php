@@ -17,7 +17,9 @@ class Web extends Model
     {
         try {
             $query = DB::table('S_NEWS')->where('is_del', '=', 0)
-                ->where('n_open_flg','=',1);
+                ->where('n_open_flg', '=', 1)
+                ->where('n_close_date', '>=', $params['open_date_def'])
+                ->whereYear('n_open_date','<=',$params['open_date_def']);
             if (!empty($params['n_important_flg'])) {
                 $query = $query->where('n_important_flg','=',1);
             }else{
@@ -27,6 +29,7 @@ class Web extends Model
             $S_NEWS_result = $query->orderBy('sort')->get()->toArray();
 
             return $S_NEWS_result;
+
         } catch (\Exception $e) {
             throw $e;
         }
@@ -51,16 +54,45 @@ class Web extends Model
         }
     }
 
+    public function web_search_company_count()
+    {
+        try {
+            $query = DB::table('S_COMPANY')
+                ->select(DB::raw('count(*) as count'))
+                ->where('is_del', '=', 0)
+                ->where('open_flg', '=', 1);
+            $all_page_count = $query->value('count');
+
+            return $all_page_count;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
     public function web_search_company()
     {
         try {
             $query = DB::table('S_COMPANY');
 
+            $fieldStrHiragana = implode(',', array_map(function($char_hiragana) {
+                return "'$char_hiragana'";
+            }, config('const.hiragana')));
+
+            $fieldStrKatakana = implode(',', array_map(function($char_katakana) {
+                return "'$char_katakana'";
+            }, config('const.katakana')));
+
             $S_COMPANY_result = $query->where('is_del', '=', 0)
                 ->where('open_flg', '=', 1)
-                ->where('select_flg', '=', 1)
-                ->orderBy('sort')
+                ->orderByRaw("
+                    CASE
+                        WHEN SUBSTRING(furigana_name, 1, 1) IN ($fieldStrHiragana) THEN FIELD(SUBSTRING(furigana_name, 1, 1), $fieldStrHiragana)
+                        WHEN SUBSTRING(furigana_name, 1, 1) IN ($fieldStrKatakana) THEN FIELD(SUBSTRING(furigana_name, 1, 1), $fieldStrKatakana)
+                        ELSE 9999
+                    END
+                ")
                 ->get()->toArray();
+
             if (!empty($S_COMPANY_result)){
                 foreach ($S_COMPANY_result as $k=>$v){
                     $S_COMPANY_result[$k]['logo_url'] = config('config.admin_url') . $v['logo_url'];
@@ -152,8 +184,7 @@ class Web extends Model
         try {
             $query = DB::table('S_PRODUCT_INFORMATION')
                 ->where('is_del', '=', 0)
-                ->where('p_open_flg', '=', 1)
-                ->where('p_flg', '=', 1);
+                ->where('p_open_flg', '=', 1);
             if (!empty($lables_arr)) {
                 $query = $query->whereRaw("FIND_IN_SET(?, p_lables)", $lables_arr);
             }
@@ -188,6 +219,7 @@ class Web extends Model
         try {
             $query = DB::table('S_PRECEDENTS');
             $result = $query->where('is_del', '=', 0)
+                ->where('open_flg', '=', 1)
                 ->orderBy('sort')
                 ->get()->toArray();
             if (!empty($result)){
@@ -220,25 +252,41 @@ class Web extends Model
     public function web_search_company_by_lables($p_type_arr)
     {
         try {
-            $query = DB::table('S_COMPANY')
-                ->where('is_del', '=', 0)
-                ->where('open_flg', '=', 1);
+            $query = DB::table('S_COMPANY');
             if (!empty($p_type_arr)) {
                 if (count($p_type_arr)>1){
                     $query = $query->where(function ($query) use ($p_type_arr) {
                         foreach ($p_type_arr as $k=>$v){
-                            if ($k == 0){
-                                $query->whereRaw("FIND_IN_SET(?, c_lables)", [$v]);
-                            }else{
-                                $query->orWhereRaw("FIND_IN_SET(?, c_lables)", [$v]);
-                            }
+                            $query->whereRaw("FIND_IN_SET(?, c_lables)", [$v]);
+//                            if ($k == 0){
+//                                $query->whereRaw("FIND_IN_SET(?, c_lables)", [$v]);
+//                            }else{
+//                                $query->orWhereRaw("FIND_IN_SET(?, c_lables)", [$v]);
+//                            }
                         }
                     });
                 }else{
                     $query = $query->whereRaw("FIND_IN_SET(?, c_lables)", $p_type_arr);
                 }
             }
-            $S_COMPANY_result = $query->orderBy('sort')->get()->toArray();
+            $fieldStrHiragana = implode(',', array_map(function($char_hiragana) {
+                return "'$char_hiragana'";
+            }, config('const.hiragana')));
+
+            $fieldStrKatakana = implode(',', array_map(function($char_katakana) {
+                return "'$char_katakana'";
+            }, config('const.katakana')));
+
+            $S_COMPANY_result = $query->where('is_del', '=', 0)
+                ->where('open_flg', '=', 1)
+                ->orderByRaw("
+                    CASE
+                        WHEN SUBSTRING(furigana_name, 1, 1) IN ($fieldStrHiragana) THEN FIELD(SUBSTRING(furigana_name, 1, 1), $fieldStrHiragana)
+                        WHEN SUBSTRING(furigana_name, 1, 1) IN ($fieldStrKatakana) THEN FIELD(SUBSTRING(furigana_name, 1, 1), $fieldStrKatakana)
+                        ELSE 9999
+                    END
+                ")
+                ->get()->toArray();
             if (!empty($S_COMPANY_result)){
                 foreach ($S_COMPANY_result as $k=>$v){
                     $S_COMPANY_result[$k]['logo_url'] = config('config.admin_url') . $v['logo_url'];
@@ -275,6 +323,7 @@ class Web extends Model
                 $result['main_img_url'] = config('config.admin_url') . $result['main_img_url'];
                 $result['guild_logo'] = config('config.admin_url') . $result['guild_logo'];
             }
+            return $result;
         } catch(\Exception $e) {
             throw $e;
         }
@@ -286,11 +335,11 @@ class Web extends Model
             $query = DB::table('S_PRECEDENTS')
                 ->where('is_del', '=', 0);
             if ($select_type == 1){
-                $query = $query->where('id','<',$id);
+                $query = $query->where('id','<',$id)->orderBy('id','DESC');
             }else{
                 $query = $query->where('id','>',$id);
             }
-            $S_PRECEDENTS_result = $query->orderBy('sort','DESC')->first();
+            $S_PRECEDENTS_result = $query->first();
             if (!empty($S_PRECEDENTS_result)){
                 $S_PRECEDENTS_result['pr_img_url'] = config('config.admin_url') . $S_PRECEDENTS_result['pr_img_url'];
                 $S_PRECEDENTS_result['main_img_url'] = config('config.admin_url') . $S_PRECEDENTS_result['main_img_url'];
@@ -302,11 +351,13 @@ class Web extends Model
         }
     }
 
-    public function web_search_news_info($n_type,$open_date)
+    public function web_search_news_info($n_type,$open_date,$open_date_def)
     {
         try {
             $query = DB::table('S_NEWS')->where('is_del', '=', 0)
-                ->where('n_open_flg', '=', 1);
+                ->where('n_open_flg', '=', 1)
+                ->where('n_close_date', '>=', $open_date_def)
+                ->orWhere('n_close_date', '=', "");
 
             if (!empty($n_type)) {
                 $query = $query->where('n_type','=',$n_type);
@@ -314,6 +365,8 @@ class Web extends Model
 
             if (!empty($open_date)) {
                 $query = $query->whereYear('n_open_date','=',$open_date);
+            }else{
+                $query = $query->whereYear('n_open_date','<=',$open_date_def);
             }
 
             $result = $query->orderBy('sort')->get()->toArray();
@@ -323,12 +376,14 @@ class Web extends Model
         }
     }
 
-    public function web_search_news_info_yesr()
+    public function web_search_news_info_yesr($open_date_def)
     {
         try {
             $query = DB::table('S_NEWS')
                 ->where('is_del', '=', 0)
-                ->where('n_open_flg', '=', 1);
+                ->where('n_open_flg', '=', 1)
+                ->where('n_close_date', '>=', $open_date_def)
+                ->whereYear('n_open_date','<=',$open_date_def);
             $result = $query->orderBy('sort')->get()->toArray();
             return $result;
         } catch (\Exception $e) {
@@ -501,7 +556,7 @@ class Web extends Model
         return DB::table('S_DOWNLOADS_HISTORY')->insertGetId($insert_S_DOWNLOADS_HISTORY);
     }
 
-    public function web_search_downloads_history_id_info($id,$phone_number,$email)
+    public function web_search_downloads_history_id_info($id,$phone_number,$email,$d_type = 0)
     {
         try {
             $result = DB::table('S_DOWNLOADS_HISTORY')
@@ -509,6 +564,7 @@ class Web extends Model
                 ->where('phone_number','=',$phone_number)
                 ->where('email','=',$email)
                 ->where('is_del','=',0)
+                ->where('d_type','=',$d_type)
                 ->first();
             if (!empty($result)){
                 $result['d_file_url'] = config('config.admin_url') . $result['d_file_url'];
@@ -532,6 +588,32 @@ class Web extends Model
                     $result[$k]['logo'] = config('config.admin_url') . $v['logo'];
                 }
             }
+            return $result;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function select_S_PRODUCT_INFORMATION_ID_info($id)
+    {
+        try {
+            return DB::table('S_PRODUCT_INFORMATION')
+                ->where('id','=',$id)
+                ->first();
+        } catch(\Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function web_search_news_first()
+    {
+        try {
+            $query = DB::table('S_NEWS')->where('is_del', '=', 0)
+                ->where('n_open_flg', '=', 1)
+                ->where('n_fixed_flg', '=', 1)
+                ->where('fix_open_date', '=', "")
+                ->where('fix_close_date', '=', "");
+            $result = $query->orderBy('sort')->get()->toArray();
             return $result;
         } catch (\Exception $e) {
             throw $e;

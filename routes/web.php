@@ -20,6 +20,9 @@ Route::middleware(['req.trim'])->group(function () {
         $app->post('download/download_from_add', 'api\web\DownloadController@post_download_from_add');
         $app->post('inquiry/inquiry_add', 'api\web\InquiryController@post_inquiry_add');
         $app->post('simulations/simulations_calculation', 'api\web\SimulationsController@post_simulations_calculation');
+        $app->post('products/products_search', 'api\web\ProductsController@post_products_search');
+        $app->post('customers/customers_search', 'api\web\CustomersController@post_customers_search');
+        $app->post('download/downloadproducts_from_add', 'api\web\DownloadController@post_downloadproducts_from_add');
     });
 });
 
@@ -45,6 +48,10 @@ Route::get('customers/detail/{id}', 'web\WebCustomersController@get_customers_de
 // downloadform
 Route::get('downloadform/{id}', 'web\WebDownloadformController@get_downloadform_index');
 Route::get('downloadform_thanks', 'web\WebDownloadformController@get_downloadform_thanks');
+
+// downloadproducts
+Route::get('downloadproducts/{id}', 'web\WebDownloadProductsController@get_download_products_index');
+Route::get('downloadproducts_thanks', 'web\WebDownloadProductsController@get_download_products_thanks');
 
 // downloads
 Route::get('downloads', 'web\WebDownloadsController@get_downloads_index');

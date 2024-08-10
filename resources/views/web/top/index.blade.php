@@ -222,6 +222,20 @@
                 @endforeach
             @endif
         </ul>
+        <ul class="slider_logo01">
+            @if($info_company1)
+                @foreach($info_company1 as $vv)
+                    <li><img src="{{$vv['logo_url']}}" alt="{{$vv['c_name']}}"></li>
+                @endforeach
+            @endif
+        </ul>
+        <ul class="slider_logo01">
+            @if($info_company2)
+                @foreach($info_company2 as $vvv)
+                    <li><img src="{{$vvv['logo_url']}}" alt="{{$vvv['c_name']}}"></li>
+                @endforeach
+            @endif
+        </ul>
 
         <div class="bace_btn01"><a href="/customers/"><span class="arrow arrow-right">導入企業一覧をみる</span></a>
         </div>
@@ -291,6 +305,7 @@
             @if($info_seminars_exhibitions)
                 @foreach($info_seminars_exhibitions as $v)
                     <li>
+                        <a href="{{$v['apply_url'] ?? ''}}">
                             <div class="seminar_box_wrap">
                                 <dl>
                                     <dt class="img"><img src="{{$v['b_url'] ?? ''}}"></dt>
@@ -348,6 +363,7 @@
                                     </dd>
                                 </dl>
                             </div>
+                        </a>
                     </li>
                 @endforeach
             @endif

@@ -46,6 +46,9 @@
     <link rel="stylesheet" href="{{ asset('assets/web_js/slick/slick.css') }}">
     <script src="{{ asset('assets/web_js/slick/slick.min.js') }}"></script>
     <!-- slick end -->
+    <script type="text/javascript" src="{{ asset('assets/js/loader.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/ajax.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/common.js') }}"></script>
     <!-- colorbox -->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/web_js/colorbox/colorbox.css') }}">
     <script type="text/javascript" src="{{ asset('assets/web_js/colorbox/colorbox.min.js') }}"></script>
@@ -190,8 +193,7 @@
                             @if(!empty($info_prodect_lables1))
                                 @foreach($info_prodect_lables1 as $v1)
                                     <li onclick="select_this({{$v1['id']}},1)">
-                                        <span
-                                            class="{{$p_type1 == $v1['id'] ? 'on' : ''}}">#{{$v1['p_name'] ?? ''}}</span>
+                                        <span>#{{$v1['p_name'] ?? ''}}</span>
                                     </li>
                                 @endforeach
                             @endif
@@ -205,8 +207,7 @@
                             @if(!empty($info_prodect_lables2))
                                 @foreach($info_prodect_lables2 as $v2)
                                     <li onclick="select_this({{$v2['id']}},2)">
-                                        <span
-                                            class="{{$p_type2 == $v2['id'] ? 'on' : ''}}">#{{$v2['p_name'] ?? ''}}</span>
+                                        <span>#{{$v2['p_name'] ?? ''}}</span>
                                     </li>
                                 @endforeach
                             @endif
@@ -220,8 +221,7 @@
                             @if(!empty($info_prodect_lables3))
                                 @foreach($info_prodect_lables3 as $v3)
                                     <li onclick="select_this({{$v3['id']}},3)">
-                                        <span
-                                            class="{{$p_type3 == $v3['id'] ? 'on' : ''}}">#{{$v3['p_name'] ?? ''}}</span>
+                                        <span>#{{$v3['p_name'] ?? ''}}</span>
                                     </li>
                                 @endforeach
                             @endif
@@ -235,8 +235,7 @@
                             @if(!empty($info_prodect_lables4))
                                 @foreach($info_prodect_lables4 as $v4)
                                     <li onclick="select_this({{$v4['id']}},4)">
-                                        <span
-                                            class="{{$p_type4 == $v4['id'] ? 'on' : ''}}">#{{$v4['p_name'] ?? ''}}</span>
+                                        <span>#{{$v4['p_name'] ?? ''}}</span>
                                     </li>
                                 @endforeach
                             @endif
@@ -251,7 +250,7 @@
 
 
             <div class="customers_logo_wrap">
-                <ul class="round_short_box_four customers_logo_box">
+                <ul class="round_short_box_four customers_logo_box" id="index_customersarea">
                     @if(!empty($info_company))
                         @foreach($info_company as $v)
                             <li>
@@ -263,18 +262,20 @@
                                     <div class="customers_btn_box">
                                         @if(!empty($v['precedents_url']))
                                             <p class="bace_btn04">
-                                                <a href="{{$v['precedents_url'] ?? ''}}">導入事例</a>
+                                                <a href="{{$v['precedents_url'] ?? ''}}" target="_blank">導入事例</a>
                                             </p>
                                         @endif
                                         @if(!empty($v['video_url']))
                                             <p class="bace_btn04">
-                                                <a href="{{$v['video_url'] ?? ''}}">紹介動画</a>
+                                                <a href="{{$v['video_url'] ?? ''}}" target="_blank">紹介動画</a>
                                             </p>
                                         @endif
                                     </div>
                                 </div>
                             </li>
                         @endforeach
+                    @else
+                        <div>該当する企業はございません</div>
                     @endif
                 </ul>
             </div>
@@ -492,83 +493,138 @@
 
 </div>
 <!-- wrapper end -->
+{{--<script>--}}
+{{--    $(document).ready(function () {--}}
+{{--        @if(!empty($p_type1) || !empty($p_type2) || !empty($p_type3) || !empty($p_type4))--}}
+{{--        $('html, body').animate({--}}
+{{--            scrollTop: $("#cont02").offset().top--}}
+{{--        }, 2000);--}}
+{{--        @endif--}}
+{{--    });--}}
+{{--</script>--}}
 <script>
-    $(document).ready(function () {
-        @if(!empty($p_type1) || !empty($p_type2) || !empty($p_type3) || !empty($p_type4))
-        $('html, body').animate({
-            scrollTop: $("#cont02").offset().top
-        }, 2000);
-        @endif
-    });
-</script>
-<script>
-    var items1 = document.querySelectorAll('#prodect_lables1 li');
+    var items1 = document.querySelectorAll('#prodect_lables1 span');
     items1.forEach(function (item1) {
         item1.addEventListener('click', function () {
-            items1.forEach(function (li) {
-                li.classList.remove('on');
-            });
-            this.classList.add('on');
+            if (this.classList.contains('on')) {
+                this.classList.remove('on');
+            } else {
+                items1.forEach(function (span) {
+                    span.classList.remove('on');
+                });
+                this.classList.add('on');
+            }
         });
     });
-    var items2 = document.querySelectorAll('#prodect_lables2 li');
+    var items2 = document.querySelectorAll('#prodect_lables2 span');
     items2.forEach(function (item2) {
         item2.addEventListener('click', function () {
-            items2.forEach(function (li) {
-                li.classList.remove('on');
-            });
-            this.classList.add('on');
+            if (this.classList.contains('on')) {
+                this.classList.remove('on');
+            } else {
+                items2.forEach(function (span) {
+                    span.classList.remove('on');
+                });
+                this.classList.add('on');
+            }
         });
     });
-    var items3 = document.querySelectorAll('#prodect_lables3 li');
+    var items3 = document.querySelectorAll('#prodect_lables3 span');
     items3.forEach(function (item3) {
         item3.addEventListener('click', function () {
-            items3.forEach(function (li) {
-                li.classList.remove('on');
-            });
-            this.classList.add('on');
+            if (this.classList.contains('on')) {
+                this.classList.remove('on');
+            } else {
+                items3.forEach(function (span) {
+                    span.classList.remove('on');
+                });
+                this.classList.add('on');
+            }
         });
     });
-    var items4 = document.querySelectorAll('#prodect_lables4 li');
+    var items4 = document.querySelectorAll('#prodect_lables4 span');
     items4.forEach(function (item4) {
         item4.addEventListener('click', function () {
-            items4.forEach(function (li) {
-                li.classList.remove('on');
-            });
-            this.classList.add('on');
+            if (this.classList.contains('on')) {
+                this.classList.remove('on');
+            } else {
+                items4.forEach(function (span) {
+                    span.classList.remove('on');
+                });
+                this.classList.add('on');
+            }
         });
     });
 </script>
 <script>
     function select_this(id, p_type) {
-        if (p_type == 1) {
-            if (id == $("#p_type1").val()) {
-                location.href = "/customers?p_type2=" + $("#p_type2").val() + "&&p_type3=" + $("#p_type3").val() + "&&p_type4=" + $("#p_type4").val();
-            } else {
-                location.href = "/customers?p_type1=" + id + "&&p_type2=" + $("#p_type2").val() + "&&p_type3=" + $("#p_type3").val() + "&&p_type4=" + $("#p_type4").val();
+        if(p_type === 1){
+            if(id == $('#p_type1').val()){
+                $('#p_type1').val("");
+            }else {
+                $('#p_type1').val(id);
+            }
+        }else if(p_type === 2){
+            if(id == $('#p_type2').val()){
+                $('#p_type2').val("");
+            }else {
+                $('#p_type2').val(id);
             }
         }
-        if (p_type == 2) {
-            if (id == $("#p_type2").val()) {
-                location.href = "/customers?p_type1=" + $("#p_type1").val() + "&&p_type3=" + $("#p_type3").val() + "&&p_type4=" + $("#p_type4").val();
-            } else {
-                location.href = "/customers?p_type2=" + id + "&&p_type1=" + $("#p_type1").val() + "&&p_type3=" + $("#p_type3").val() + "&&p_type4=" + $("#p_type4").val();
+        else if(p_type === 3){
+            if(id == $('#p_type3').val()){
+                $('#p_type3').val("");
+            }else {
+                $('#p_type3').val(id);
             }
         }
-        if (p_type == 3) {
-            if (id == $("#p_type3").val()) {
-                location.href = "/customers?p_type1=" + $("#p_type1").val() + "&&p_type2=" + $("#p_type2").val() + "&&p_type4=" + $("#p_type4").val();
-            } else {
-                location.href = "/customers?p_type3=" + id + "&&p_type1=" + $("#p_type1").val() + "&&p_type2=" + $("#p_type2").val() + "&&p_type4=" + $("#p_type4").val();
+        else if(p_type === 4){
+            if(id == $('#p_type4').val()){
+                $('#p_type4').val("");
+            }else {
+                $('#p_type4').val(id);
             }
         }
-        if (p_type == 4) {
-            if (id == $("#p_type4").val()) {
-                location.href = "/customers?p_type1=" + $("#p_type1").val() + "&&p_type2=" + $("#p_type2").val() + "&&p_type3=" + $("#p_type3").val();
-            } else {
-                location.href = "/customers?p_type4=" + id + "&&p_type1=" + $("#p_type1").val() + "&&p_type2=" + $("#p_type2").val() + "&&p_type3=" + $("#p_type3").val();
+        var url = "/webapi/customers/customers_search";
+        var params = {};
+        params.p_type1 = $("#p_type1").val();
+        params.p_type2 = $("#p_type2").val();
+        params.p_type3 = $("#p_type3").val();
+        params.p_type4 = $("#p_type4").val();
+        ajax.post(url, params, function(data) {
+            if (data['RESULT'] === "OK") {
+                $('#index_customersarea').empty();
+                if(data['DATA'].length === 0){
+                    var itemHtml = `<div>該当する企業はございません</div>`;
+                    $('#index_customersarea').append(itemHtml);
+                }else {
+                    $.each(data['DATA'], function(index, item) {
+                        var itemHtml = `
+                                     <li>
+                                        <div class="txt_inner">
+                                            <p class="customers_logo">
+                                                <img src="${item.logo_url}" alt="${item.c_name}">
+                                            </p>
+                                            <p class="customers_name">${item.c_name}</p>
+                                        <div class="customers_btn_box">`;
+                        if(data['DATA'][index]['precedents_url']){
+                            itemHtml += `
+                                    <p class="bace_btn04">
+                                        <a href="${item.precedents_url}" target="_blank">導入事例</a>
+                                    </p>`;
+                        }
+                        if(data['DATA'][index]['video_url']){
+                            itemHtml += `
+                                    <p class="bace_btn04">
+                                        <a href="${item.video_url}" target="_blank">紹介動画</a>
+                                    </p>`;
+                        }
+                        itemHtml += `</div></div></li>`;
+                        $('#index_customersarea').append(itemHtml);
+                    });
+                }
             }
-        }
+        });
     }
 </script>
 <script src="https://ssl.google-analytics.com/urchin.js" type="text/javascript"></script>

@@ -76,7 +76,9 @@ class WebCustomersController
         $Web = new Web($this);
         //事例Details
         $info_precedents = $Web->web_search_precedents_id_info($id);
-
+        if (empty($info_precedents)){
+            return redirect('/');
+        }
         //タグ名
         $PRODECT_LABLES_ARR = array();
         if (!empty($info_precedents['pr_labels'])){
@@ -93,15 +95,15 @@ class WebCustomersController
 
         //事例Details Before
         $this->data['before_id'] = "";
-        $info_precedents = $Web->web_search_precedents_id_info_before_after($id,1);
-        if (!empty($info_precedents)){
-            $this->data['before_id'] = $info_precedents['id'];
+        $info_precedents_before_after = $Web->web_search_precedents_id_info_before_after($id,1);
+        if (!empty($info_precedents_before_after)){
+            $this->data['before_id'] = $info_precedents_before_after['id'];
         }
         //事例Details After
         $this->data['after_id'] = "";
-        $info_precedents = $Web->web_search_precedents_id_info_before_after($id,2);
-        if (!empty($info_precedents)){
-            $this->data['after_id'] = $info_precedents['id'];
+        $info_precedents_before_after = $Web->web_search_precedents_id_info_before_after($id,2);
+        if (!empty($info_precedents_before_after)){
+            $this->data['after_id'] = $info_precedents_before_after['id'];
         }
 
         return view('web/customers/detail',$this->data);

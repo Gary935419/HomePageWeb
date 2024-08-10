@@ -398,10 +398,14 @@
     var items1 = document.querySelectorAll('#years a');
     items1.forEach(function (item1) {
         item1.addEventListener('click', function () {
-            items1.forEach(function (a) {
-                a.classList.remove('on');
-            });
-            this.classList.add('on');
+            if (this.classList.contains('on')) {
+                this.classList.remove('on');
+            } else {
+                items1.forEach(function (a) {
+                    a.classList.remove('on');
+                });
+                this.classList.add('on');
+            }
         });
     });
     var items2 = document.querySelectorAll('#type a');
@@ -416,10 +420,14 @@
 </script>
 <script>
     function select_this_years(open_date) {
-        $('#open_date').val(open_date);
+        if(open_date == $('#open_date').val()){
+            $('#open_date').val("");
+        }else {
+            $('#open_date').val(open_date);
+        }
         var url = "/webapi/topics/topics_search";
         var params = {};
-        params.open_date = open_date;
+        params.open_date = $('#open_date').val();
         params.n_type = $("#n_type").val();
         ajax.post(url, params, function(data) {
             if (data['RESULT'] === "OK") {
