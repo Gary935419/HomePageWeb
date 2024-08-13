@@ -268,8 +268,8 @@
         <h2 class="main_ttl main_ttl_underline">News & Press Releases</h2>
 
         <div class="index_newsarea">
-            @if(!empty($info_unimportant_news))
-                @foreach($info_unimportant_news as $v)
+            @if(!empty($info_news_arr))
+                @foreach($info_news_arr as $v)
                     <dl>
                         @if($v['n_type'] == 1)
                             <dt><span>新着情報</span></dt>

@@ -16,15 +16,19 @@ class Web extends Model
     public function web_search_news($params)
     {
         try {
+            $open_date_def = $params['open_date_def'];
             $query = DB::table('S_NEWS')->where('is_del', '=', 0)
                 ->where('n_open_flg', '=', 1)
-                ->where('n_close_date', '>=', $params['open_date_def'])
-                ->whereYear('n_open_date','<=',$params['open_date_def']);
+                ->whereDate('n_open_date','<=',$params['open_date_def']);
+
             if (!empty($params['n_important_flg'])) {
                 $query = $query->where('n_important_flg','=',1);
-            }else{
-                $query = $query->where('n_important_flg','=',0);
             }
+
+            $query = $query->where(function ($query) use ($open_date_def) {
+                $query->whereDate('n_close_date', '>=', $open_date_def)
+                    ->orWhere('n_close_date', '=', "");
+            });
 
             $S_NEWS_result = $query->orderBy('sort')->get()->toArray();
 
@@ -351,40 +355,18 @@ class Web extends Model
         }
     }
 
-    public function web_search_news_info($n_type,$open_date,$open_date_def)
+    public function web_search_news_info_yesr($open_date_def)
     {
         try {
             $query = DB::table('S_NEWS')->where('is_del', '=', 0)
                 ->where('n_open_flg', '=', 1)
-                ->where('n_close_date', '>=', $open_date_def)
-                ->orWhere('n_close_date', '=', "");
+                ->whereDate('n_open_date','<=',$open_date_def);
 
-            if (!empty($n_type)) {
-                $query = $query->where('n_type','=',$n_type);
-            }
-
-            if (!empty($open_date)) {
-                $query = $query->whereYear('n_open_date','=',$open_date);
-            }else{
-                $query = $query->whereYear('n_open_date','<=',$open_date_def);
-            }
-
-            $result = $query->orderBy('sort')->get()->toArray();
-            return $result;
-        } catch (\Exception $e) {
-            throw $e;
-        }
-    }
-
-    public function web_search_news_info_yesr($open_date_def)
-    {
-        try {
-            $query = DB::table('S_NEWS')
-                ->where('is_del', '=', 0)
-                ->where('n_open_flg', '=', 1)
-                ->where('n_close_date', '>=', $open_date_def)
-                ->whereYear('n_open_date','<=',$open_date_def);
-            $result = $query->orderBy('sort')->get()->toArray();
+            $query = $query->where(function ($query) use ($open_date_def) {
+                $query->whereDate('n_close_date', '>=', $open_date_def)
+                    ->orWhere('n_close_date', '=', "");
+            });
+            $result = $query->get()->toArray();
             return $result;
         } catch (\Exception $e) {
             throw $e;
@@ -605,15 +587,94 @@ class Web extends Model
         }
     }
 
-    public function web_search_news_first()
+    public function web_search_news_first($open_date_def)
     {
         try {
             $query = DB::table('S_NEWS')->where('is_del', '=', 0)
                 ->where('n_open_flg', '=', 1)
                 ->where('n_fixed_flg', '=', 1)
-                ->where('fix_open_date', '=', "")
-                ->where('fix_close_date', '=', "");
-            $result = $query->orderBy('sort')->get()->toArray();
+                ->whereDate('n_open_date','<=',$open_date_def);
+
+            $query = $query->where(function ($query) use ($open_date_def) {
+                $query->whereDate('n_close_date', '>=', $open_date_def)
+                    ->orWhere('n_close_date', '=', "");
+            });
+            $result = $query->get()->toArray();
+            return $result;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function web_search_news_second($open_date_def)
+    {
+        try {
+            $query = DB::table('S_NEWS')->where('is_del', '=', 0)
+                ->where('n_open_flg', '=', 1)
+                ->whereDate('n_open_date','<=',$open_date_def);
+
+            $query = $query->where(function ($query) use ($open_date_def) {
+                $query->whereDate('n_close_date', '>=', $open_date_def)
+                    ->orWhere('n_close_date', '=', "");
+            });
+            $result = $query->get()->toArray();
+            return $result;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function web_search_news_first_search($open_date_def,$n_type,$open_date_year)
+    {
+        try {
+            $query = DB::table('S_NEWS')->where('is_del', '=', 0)
+                ->where('n_open_flg', '=', 1)
+                ->where('n_fixed_flg', '=', 1)
+                ->whereDate('n_open_date','<=',$open_date_def);
+
+            if (!empty($n_type)) {
+                $query = $query->where('n_type','=',$n_type);
+            }
+
+            if (!empty($open_date_year)) {
+                $query = $query->whereYear('n_open_date','=',$open_date_year);
+            }else{
+                $query = $query->whereYear('n_open_date','<=',$open_date_def);
+            }
+
+            $query = $query->where(function ($query) use ($open_date_def) {
+                $query->whereDate('n_close_date', '>=', $open_date_def)
+                    ->orWhere('n_close_date', '=', "");
+            });
+            $result = $query->get()->toArray();
+            return $result;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function web_search_news_second_search($open_date_def,$n_type,$open_date_year)
+    {
+        try {
+            $query = DB::table('S_NEWS')->where('is_del', '=', 0)
+                ->where('n_open_flg', '=', 1)
+                ->whereDate('n_open_date','<=',$open_date_def);
+
+            if (!empty($n_type)) {
+                $query = $query->where('n_type','=',$n_type);
+            }
+
+            if (!empty($open_date_year)) {
+                $query = $query->whereYear('n_open_date','=',$open_date_year);
+            }else{
+                $query = $query->whereYear('n_open_date','<=',$open_date_def);
+            }
+
+            $query = $query->where(function ($query) use ($open_date_def) {
+                $query->whereDate('n_close_date', '>=', $open_date_def)
+                    ->orWhere('n_close_date', '=', "");
+            });
+            $result = $query->get()->toArray();
             return $result;
         } catch (\Exception $e) {
             throw $e;

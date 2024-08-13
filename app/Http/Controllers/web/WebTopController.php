@@ -23,10 +23,77 @@ class WebTopController
         }
 
         //新着情報
-        $params['n_important_flg'] = 0;
-        $info_unimportant_news = $Web->web_search_news($params);
-        foreach ($info_unimportant_news as $k=>$v){
-            $info_unimportant_news[$k]['n_open_date'] = date('Y-m-d',strtotime($v['n_open_date']));
+        //ニュースリリース一覧
+        $info_news_first = $Web->web_search_news_first($open_date_def);
+        $info_news_fixed_arr = array();
+        foreach ($info_news_first as $v){
+            if(empty($v['fix_open_date']) && empty($v['fix_close_date'])){
+                $info_news_fixed_arr[] = $v;
+            }
+            if (!empty($v['fix_open_date']) && empty($v['fix_close_date'])){
+                if ($open_date_def >= date('Y-m-d',strtotime($v['fix_open_date']))){
+                    $info_news_fixed_arr[] = $v;
+                }
+            }
+            if (empty($v['fix_open_date']) && !empty($v['fix_close_date'])){
+                if ($open_date_def <= date('Y-m-d',strtotime($v['fix_close_date']))){
+                    $info_news_fixed_arr[] = $v;
+                }
+            }
+            if (!empty($v['fix_open_date']) && !empty($v['fix_close_date'])){
+                if (($open_date_def >= date('Y-m-d',strtotime($v['fix_open_date']))) && ($open_date_def <= date('Y-m-d',strtotime($v['fix_close_date'])))){
+                    $info_news_fixed_arr[] = $v;
+                }
+            }
+        }
+        usort($info_news_fixed_arr, function($a, $b) {
+            return $b['n_open_date'] <=> $a['n_open_date'];
+        });
+
+        $info_news_second = $Web->web_search_news_second($open_date_def);
+        $info_news_unfixed_arr = array();
+        foreach ($info_news_second as $v){
+            if (!empty($v['n_fixed_flg'])){
+                if(empty($v['fix_open_date']) && empty($v['fix_close_date'])){
+                    continue;
+                }
+                if (!empty($v['fix_open_date']) && empty($v['fix_close_date'])){
+                    if ($open_date_def >= date('Y-m-d',strtotime($v['fix_open_date']))){
+                        continue;
+                    }
+                }
+                if (empty($v['fix_open_date']) && !empty($v['fix_close_date'])){
+                    if ($open_date_def <= date('Y-m-d',strtotime($v['fix_close_date']))){
+                        continue;
+                    }
+                }
+                if (!empty($v['fix_open_date']) && !empty($v['fix_close_date'])){
+                    if (($open_date_def >= date('Y-m-d',strtotime($v['fix_open_date']))) && ($open_date_def <= date('Y-m-d',strtotime($v['fix_close_date'])))){
+                        continue;
+                    }
+                }
+            }
+            $info_news_unfixed_arr[] = $v;
+        }
+        usort($info_news_unfixed_arr, function($a, $b) {
+            return $b['n_open_date'] <=> $a['n_open_date'];
+        });
+
+        $info_news_arr = array_merge($info_news_fixed_arr, $info_news_unfixed_arr);
+
+        foreach ($info_news_arr as $k=>$v){
+            $info_news_arr[$k]['n_open_date'] = date('Y-m-d',strtotime($v['n_open_date']));
+            if ($v['n_type'] == 1){
+                $info_news_arr[$k]['n_type_name'] = "新着情報";
+            }elseif ($v['n_type'] == 2){
+                $info_news_arr[$k]['n_type_name'] = "セミナー展示会";
+            }elseif ($v['n_type'] == 3){
+                $info_news_arr[$k]['n_type_name'] = "ニュースリリース";
+            }elseif ($v['n_type'] == 4){
+                $info_news_arr[$k]['n_type_name'] = "メディア";
+            }else{
+                $info_news_arr[$k]['n_type_name'] = "障害連絡";
+            }
         }
 
         //製品情報-バナー
@@ -149,7 +216,7 @@ class WebTopController
         $this->data['info_company2'] = $info_company2;
         $this->data['info_product_banners'] = $info_product_banners;
         $this->data['info_important_news'] = $info_important_news;
-        $this->data['info_unimportant_news'] = $info_unimportant_news;
+        $this->data['info_news_arr'] = $info_news_arr;
 
         return view('web/top/index',$this->data);
     }
