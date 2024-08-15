@@ -91,6 +91,16 @@ class WebCustomersController
             }
         }
         $info_precedents['PRODECT_LABLES_ARR'] = $PRODECT_LABLES_ARR;
+
+        // <a>タグに変換
+        $pattern = '/(https?:\/\/[^\s]+)/';
+        $text = $info_precedents['guild_descriptions'];
+        $text = preg_replace_callback($pattern, function($matches) {
+            $url = $matches[0];
+            return '<a href="' . $url . '" target="_blank">' . $url . '</a>';
+        }, $text);
+        $info_precedents['guild_descriptions'] = $text;
+
         $this->data['info_precedents'] = $info_precedents;
 
         //事例Details Before

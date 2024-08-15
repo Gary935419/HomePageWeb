@@ -197,7 +197,7 @@
                                                     <div class="time">{{$v['opening_times'] ?? ''}}
                                                         - {{$v['closeing_times'] ?? ''}}</div>
                                                 </div>
-                                                <p class="txt">{{$v['title'] ?? ''}}</p>
+                                                <p class="txt">{{$v['p_contents'] ?? ''}}</p>
                                                 <ul class="seminar_tag">
                                                     @if(!empty($v['SEMINARS_EXHIBITIONS_LABLES_ARR']))
                                                         @foreach($v['SEMINARS_EXHIBITIONS_LABLES_ARR'] as $vv)
@@ -283,7 +283,7 @@
                                                     <div class="time">{{$v['opening_times'] ?? ''}}
                                                         - {{$v['closeing_times'] ?? ''}}</div>
                                                 </div>
-                                                <p class="txt">{{$v['title'] ?? ''}}</p>
+                                                <p class="txt">{{$v['p_contents'] ?? ''}}</p>
                                                 <ul class="seminar_tag">
                                                     @if(!empty($v['SEMINARS_EXHIBITIONS_LABLES_ARR']))
                                                         @foreach($v['SEMINARS_EXHIBITIONS_LABLES_ARR'] as $vv)

@@ -152,8 +152,18 @@
             <h3 class="customers_detail_ttl"><span>{{$info_precedents['pr_title'] ?? ''}}</span></h3>
 
             <div class="customers_detail_wrap">
-                <div class="img"><img src="{{$info_precedents['pr_img_url'] ?? ''}}"
-                                      alt="{{$info_precedents['guild_name'] ?? ''}}"></div>
+
+                @if($info_precedents['main_flg'] != 1)
+                    <div class="img">
+                        <img src="{{$info_precedents['main_img_url'] ?? ''}}" alt="{{$info_precedents['guild_name'] ?? ''}}">
+                    </div>
+                @else
+                    <iframe style="width: 100%" height="400" src="{{$info_precedents['main_video_url'] ?? ''}}"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                @endif
 
                 <div class="white_box03">
                     <dl class="customers_detail_card">

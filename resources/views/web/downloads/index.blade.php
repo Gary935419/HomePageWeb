@@ -139,7 +139,11 @@
                                     <ul class="pdf_list">
                                         @if(!empty($v['DOWNLOADS_ARR']))
                                             @foreach($v['DOWNLOADS_ARR'] as $vv)
-                                                <li onclick="select_this({{$v['id']}})"><a>{{$vv['d_file_name']}}</a></li>
+                                                @if(!empty($vv['confirm_flg']))
+                                                    <li onclick="select_this({{$vv['id']}})"><a>{{$vv['d_file_name']}}</a></li>
+                                                @else
+                                                    <li><a href="{{$vv['d_file_url']}}">{{$vv['d_file_name']}}</a></li>
+                                                @endif
                                             @endforeach
                                         @endif
                                     </ul>
