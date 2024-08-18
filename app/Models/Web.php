@@ -32,6 +32,13 @@ class Web extends Model
 
             $S_NEWS_result = $query->orderBy('sort')->get()->toArray();
 
+            if (!empty($S_NEWS_result)){
+                foreach ($S_NEWS_result as $k=>$v){
+                    $originalString = $v['n_contents'];
+                    $S_NEWS_result[$k]['n_contents'] = str_replace("/uploads/", config('config.admin_url') . "/uploads/", $originalString);
+                }
+            }
+
             return $S_NEWS_result;
 
         } catch (\Exception $e) {
@@ -231,6 +238,8 @@ class Web extends Model
                     $result[$k]['pr_img_url'] = config('config.admin_url') . $v['pr_img_url'];
                     $result[$k]['guild_logo'] = config('config.admin_url') . $v['guild_logo'];
                     $result[$k]['main_img_url'] = config('config.admin_url') . $v['main_img_url'];
+                    $originalString = $v['pr_contents'];
+                    $result[$k]['pr_contents'] = str_replace("/uploads/", config('config.admin_url') . "/uploads/", $originalString);
                 }
             }
             return $result;
@@ -326,6 +335,8 @@ class Web extends Model
                 $result['pr_img_url'] = config('config.admin_url') . $result['pr_img_url'];
                 $result['main_img_url'] = config('config.admin_url') . $result['main_img_url'];
                 $result['guild_logo'] = config('config.admin_url') . $result['guild_logo'];
+                $originalString = $result['pr_contents'];
+                $result['pr_contents'] = str_replace("/uploads/", config('config.admin_url') . "/uploads/", $originalString);
             }
             return $result;
         } catch(\Exception $e) {
@@ -348,6 +359,8 @@ class Web extends Model
                 $S_PRECEDENTS_result['pr_img_url'] = config('config.admin_url') . $S_PRECEDENTS_result['pr_img_url'];
                 $S_PRECEDENTS_result['main_img_url'] = config('config.admin_url') . $S_PRECEDENTS_result['main_img_url'];
                 $S_PRECEDENTS_result['guild_logo'] = config('config.admin_url') . $S_PRECEDENTS_result['guild_logo'];
+                $originalString = $S_PRECEDENTS_result['pr_contents'];
+                $S_PRECEDENTS_result['pr_contents'] = str_replace("/uploads/", config('config.admin_url') . "/uploads/", $originalString);
             }
             return $S_PRECEDENTS_result;
         } catch(\Exception $e) {
@@ -366,8 +379,16 @@ class Web extends Model
                 $query->whereDate('n_close_date', '>=', $open_date_def)
                     ->orWhere('n_close_date', '=', "");
             });
-            $result = $query->get()->toArray();
-            return $result;
+            $S_NEWS_result = $query->get()->toArray();
+
+            if (!empty($S_NEWS_result)){
+                foreach ($S_NEWS_result as $k=>$v){
+                    $originalString = $v['n_contents'];
+                    $S_NEWS_result[$k]['n_contents'] = str_replace("/uploads/", config('config.admin_url') . "/uploads/", $originalString);
+                }
+            }
+
+            return $S_NEWS_result;
         } catch (\Exception $e) {
             throw $e;
         }
@@ -376,11 +397,16 @@ class Web extends Model
     public function web_search_new_id_info($id)
     {
         try {
-            return DB::table('S_NEWS')
+            $S_NEWS_result = DB::table('S_NEWS')
                 ->where('id','=',$id)
                 ->where('is_del', '=', 0)
                 ->where('n_open_flg', '=', 1)
                 ->first();
+            if (!empty($S_NEWS_result)){
+                $originalString = $S_NEWS_result['n_contents'];
+                $S_NEWS_result['n_contents'] = str_replace("/uploads/", config('config.admin_url') . "/uploads/", $originalString);
+            }
+            return $S_NEWS_result;
         } catch(\Exception $e) {
             throw $e;
         }
@@ -599,8 +625,16 @@ class Web extends Model
                 $query->whereDate('n_close_date', '>=', $open_date_def)
                     ->orWhere('n_close_date', '=', "");
             });
-            $result = $query->get()->toArray();
-            return $result;
+            $S_NEWS_result = $query->get()->toArray();
+
+            if (!empty($S_NEWS_result)){
+                foreach ($S_NEWS_result as $k=>$v){
+                    $originalString = $v['n_contents'];
+                    $S_NEWS_result[$k]['n_contents'] = str_replace("/uploads/", config('config.admin_url') . "/uploads/", $originalString);
+                }
+            }
+
+            return $S_NEWS_result;
         } catch (\Exception $e) {
             throw $e;
         }
@@ -617,8 +651,16 @@ class Web extends Model
                 $query->whereDate('n_close_date', '>=', $open_date_def)
                     ->orWhere('n_close_date', '=', "");
             });
-            $result = $query->get()->toArray();
-            return $result;
+            $S_NEWS_result = $query->get()->toArray();
+
+            if (!empty($S_NEWS_result)){
+                foreach ($S_NEWS_result as $k=>$v){
+                    $originalString = $v['n_contents'];
+                    $S_NEWS_result[$k]['n_contents'] = str_replace("/uploads/", config('config.admin_url') . "/uploads/", $originalString);
+                }
+            }
+
+            return $S_NEWS_result;
         } catch (\Exception $e) {
             throw $e;
         }
@@ -646,8 +688,16 @@ class Web extends Model
                 $query->whereDate('n_close_date', '>=', $open_date_def)
                     ->orWhere('n_close_date', '=', "");
             });
-            $result = $query->get()->toArray();
-            return $result;
+            $S_NEWS_result = $query->get()->toArray();
+
+            if (!empty($S_NEWS_result)){
+                foreach ($S_NEWS_result as $k=>$v){
+                    $originalString = $v['n_contents'];
+                    $S_NEWS_result[$k]['n_contents'] = str_replace("/uploads/", config('config.admin_url') . "/uploads/", $originalString);
+                }
+            }
+
+            return $S_NEWS_result;
         } catch (\Exception $e) {
             throw $e;
         }
@@ -674,8 +724,16 @@ class Web extends Model
                 $query->whereDate('n_close_date', '>=', $open_date_def)
                     ->orWhere('n_close_date', '=', "");
             });
-            $result = $query->get()->toArray();
-            return $result;
+            $S_NEWS_result = $query->get()->toArray();
+
+            if (!empty($S_NEWS_result)){
+                foreach ($S_NEWS_result as $k=>$v){
+                    $originalString = $v['n_contents'];
+                    $S_NEWS_result[$k]['n_contents'] = str_replace("/uploads/", config('config.admin_url') . "/uploads/", $originalString);
+                }
+            }
+
+            return $S_NEWS_result;
         } catch (\Exception $e) {
             throw $e;
         }
