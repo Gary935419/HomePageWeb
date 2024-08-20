@@ -11,11 +11,10 @@ class ProductsController extends Controller
         try {
             $paramsAll = request()->all();
             $lables_arr = array();
-            if (isset($paramsAll['id']) && !empty($paramsAll['id'])){
-                $lables_arr[] = $paramsAll['id'];
+            if (isset($paramsAll['id_queryString']) && !empty($paramsAll['id_queryString'])){
+                $lables_arr = explode(',', $paramsAll['id_queryString']);
             }
             $Web = new Web($this);
-
             //製品情報
             $info_product = $Web->web_search_product($lables_arr);
             foreach ($info_product as $k=>$v){

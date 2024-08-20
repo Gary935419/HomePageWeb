@@ -144,8 +144,8 @@
             <ul class="products_list bace_list" id="product_lables">
                 @if(!empty($info_product_lables))
                     @foreach($info_product_lables as $v)
-                        <li onclick="select_this({{$v['id']}})">
-                            <span>#{{$v['pr_name'] ?? ''}}</span>
+                        <li>
+                            <span id="{{$v['id']}}">#{{$v['pr_name'] ?? ''}}</span>
                         </li>
                     @endforeach
                 @endif
@@ -153,8 +153,6 @@
         </div>
     </section>
     <!--//cont01-->
-
-    <input type="hidden" id="hide_lableid" value="{{$id}}">
 
     <!--cont02-->
     <section class="area">
@@ -426,17 +424,21 @@
 </div>
 <!-- wrapper end -->
 <script>
-    var items = document.querySelectorAll('#product_lables span');
-    items.forEach(function (item) {
-        item.addEventListener('click', function () {
-            if (this.classList.contains('on')) {
-                this.classList.remove('on');
+    let selectedIds = [];
+    const listItems = document.querySelectorAll('#product_lables span');
+    listItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const itemId = item.id;
+            if (selectedIds.includes(itemId)) {
+                selectedIds = selectedIds.filter(id => id !== itemId);
+                item.classList.remove('on');
             } else {
-                items.forEach(function (span) {
-                    span.classList.remove('on');
-                });
-                this.classList.add('on');
+                selectedIds.push(itemId);
+                item.classList.add('on');
             }
+            console.log('Selected IDs:', selectedIds);
+            const queryString = selectedIds.join(',');
+            fetchData(queryString);
         });
     });
 </script>
@@ -444,15 +446,10 @@
     function select_this_down(id) {
         location.href = "/downloadproducts/" + id;
     }
-    function select_this(id) {
-        if(id == $('#hide_lableid').val()){
-            $('#hide_lableid').val("");
-        }else {
-            $('#hide_lableid').val(id);
-        }
+    function fetchData(queryString) {
         var url = "/webapi/products/products_search";
         var params = {};
-        params.id = $('#hide_lableid').val();
+        params.id_queryString = queryString;
         ajax.post(url, params, function(data) {
             if (data['RESULT'] === "OK") {
                 $('#index_productarea').empty();

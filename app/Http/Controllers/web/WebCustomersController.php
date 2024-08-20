@@ -8,31 +8,8 @@ class WebCustomersController
 {
     public function get_customers_index()
     {
-        $paramsAll = request()->all();
-        $this->data['p_type1'] = "";
-        $this->data['p_type2'] = "";
-        $this->data['p_type3'] = "";
-        $this->data['p_type4'] = "";
         $p_type_arr = array();
-        if (isset($paramsAll['p_type1']) && !empty($paramsAll['p_type1'])){
-            $this->data['p_type1'] = $paramsAll['p_type1'];
-            $p_type_arr[] = $paramsAll['p_type1'];
-        }
-        if (isset($paramsAll['p_type2']) && !empty($paramsAll['p_type2'])){
-            $this->data['p_type2'] = $paramsAll['p_type2'];
-            $p_type_arr[] = $paramsAll['p_type2'];
-        }
-        if (isset($paramsAll['p_type3']) && !empty($paramsAll['p_type3'])){
-            $this->data['p_type3'] = $paramsAll['p_type3'];
-            $p_type_arr[] = $paramsAll['p_type3'];
-        }
-        if (isset($paramsAll['p_type4']) && !empty($paramsAll['p_type4'])){
-            $this->data['p_type4'] = $paramsAll['p_type4'];
-            $p_type_arr[] = $paramsAll['p_type4'];
-        }
-
         $Web = new Web($this);
-
         //導入事例
         $info_recedents = $Web->web_search_precedents();
         foreach ($info_recedents as $k=>$v){
@@ -101,6 +78,12 @@ class WebCustomersController
         }, $text);
         $info_precedents['guild_descriptions'] = $text;
 
+
+        // YoutubeのURL変換
+        if (!empty($info_precedents['main_flg'])){
+            $info_precedents['main_video_url'] = self::youtubeUrlToEmbed($info_precedents['main_video_url']);
+        }
+
         $this->data['info_precedents'] = $info_precedents;
 
         //事例Details Before
@@ -117,5 +100,26 @@ class WebCustomersController
         }
 
         return view('web/customers/detail',$this->data);
+    }
+
+    // YoutubeのURL変換
+    function youtubeUrlToEmbed($url) {
+        // YouTubeの通常URLから動画IDを取得
+        if (strpos($url, 'youtube.com/watch?v=') !== false) {
+            $urlParts = parse_url($url);
+            parse_str($urlParts['query'], $queryParams);
+            $videoId = $queryParams['v'];
+        }
+        // YouTubeの短縮URLから動画IDを取得
+        elseif (strpos($url, 'youtu.be/') !== false) {
+            $videoId = str_replace('youtu.be/', '', parse_url($url, PHP_URL_PATH));
+        } else {
+            return 'Invalid YouTube URL';
+        }
+
+        // 埋め込みタグを生成
+        $embedUrl = "https://www.youtube.com/embed/" . $videoId;
+
+        return $embedUrl;
     }
 }

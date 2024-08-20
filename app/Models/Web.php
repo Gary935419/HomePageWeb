@@ -197,7 +197,15 @@ class Web extends Model
                 ->where('is_del', '=', 0)
                 ->where('p_open_flg', '=', 1);
             if (!empty($lables_arr)) {
-                $query = $query->whereRaw("FIND_IN_SET(?, p_lables)", $lables_arr);
+                $query = $query->where(function ($query) use ($lables_arr) {
+                    foreach ($lables_arr as $k=>$v){
+                        if ($k == 0){
+                            $query->whereRaw("FIND_IN_SET(?, p_lables)", $v);
+                        }else{
+                            $query->orWhereRaw("FIND_IN_SET(?, p_lables)", $v);
+                        }
+                    }
+                });
             }
             $S_PRODUCT_LABLES_result = $query->orderBy('sort')->get()->toArray();
             if (!empty($S_PRODUCT_LABLES_result)){
@@ -267,20 +275,15 @@ class Web extends Model
         try {
             $query = DB::table('S_COMPANY');
             if (!empty($p_type_arr)) {
-                if (count($p_type_arr)>1){
-                    $query = $query->where(function ($query) use ($p_type_arr) {
-                        foreach ($p_type_arr as $k=>$v){
+                $query = $query->where(function ($query) use ($p_type_arr) {
+                    foreach ($p_type_arr as $k=>$v){
+                        if ($k == 0){
                             $query->whereRaw("FIND_IN_SET(?, c_lables)", [$v]);
-//                            if ($k == 0){
-//                                $query->whereRaw("FIND_IN_SET(?, c_lables)", [$v]);
-//                            }else{
-//                                $query->orWhereRaw("FIND_IN_SET(?, c_lables)", [$v]);
-//                            }
+                        }else{
+                            $query->orWhereRaw("FIND_IN_SET(?, c_lables)", [$v]);
                         }
-                    });
-                }else{
-                    $query = $query->whereRaw("FIND_IN_SET(?, c_lables)", $p_type_arr);
-                }
+                    }
+                });
             }
             $fieldStrHiragana = implode(',', array_map(function($char_hiragana) {
                 return "'$char_hiragana'";

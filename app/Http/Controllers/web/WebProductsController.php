@@ -8,18 +8,11 @@ class WebProductsController
 {
     public function get_products_index()
     {
-        $paramsAll = request()->all();
-        $this->data['id'] = "";
         $lables_arr = array();
-        if (isset($paramsAll['id']) && !empty($paramsAll['id'])){
-            $this->data['id'] = $paramsAll['id'];
-            $lables_arr[] = $paramsAll['id'];
-        }
         $Web = new Web($this);
         //製品情報-タグ
         $info_product_lables = $Web->web_search_product_lables();
         $this->data['info_product_lables'] = $info_product_lables;
-
 
         //製品情報
         $info_product = $Web->web_search_product($lables_arr);

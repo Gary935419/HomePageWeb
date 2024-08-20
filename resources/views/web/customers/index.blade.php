@@ -192,8 +192,8 @@
                         <ul class="bace_list" id="prodect_lables1">
                             @if(!empty($info_prodect_lables1))
                                 @foreach($info_prodect_lables1 as $v1)
-                                    <li onclick="select_this({{$v1['id']}},1)">
-                                        <span>#{{$v1['p_name'] ?? ''}}</span>
+                                    <li>
+                                        <span id="{{$v1['id']}}">#{{$v1['p_name'] ?? ''}}</span>
                                     </li>
                                 @endforeach
                             @endif
@@ -206,8 +206,8 @@
                         <ul class="bace_list" id="prodect_lables2">
                             @if(!empty($info_prodect_lables2))
                                 @foreach($info_prodect_lables2 as $v2)
-                                    <li onclick="select_this({{$v2['id']}},2)">
-                                        <span>#{{$v2['p_name'] ?? ''}}</span>
+                                    <li>
+                                        <span id="{{$v2['id']}}">#{{$v2['p_name'] ?? ''}}</span>
                                     </li>
                                 @endforeach
                             @endif
@@ -220,8 +220,8 @@
                         <ul class="bace_list" id="prodect_lables3">
                             @if(!empty($info_prodect_lables3))
                                 @foreach($info_prodect_lables3 as $v3)
-                                    <li onclick="select_this({{$v3['id']}},3)">
-                                        <span>#{{$v3['p_name'] ?? ''}}</span>
+                                    <li>
+                                        <span id="{{$v3['id']}}">#{{$v3['p_name'] ?? ''}}</span>
                                     </li>
                                 @endforeach
                             @endif
@@ -234,8 +234,8 @@
                         <ul class="bace_list" id="prodect_lables4">
                             @if(!empty($info_prodect_lables4))
                                 @foreach($info_prodect_lables4 as $v4)
-                                    <li onclick="select_this({{$v4['id']}},4)">
-                                        <span>#{{$v4['p_name'] ?? ''}}</span>
+                                    <li>
+                                        <span id="{{$v4['id']}}">#{{$v4['p_name'] ?? ''}}</span>
                                     </li>
                                 @endforeach
                             @endif
@@ -243,10 +243,11 @@
                     </dd>
                 </dl>
             </div>
-            <input type="hidden" id="p_type1" value="{{$p_type1}}">
-            <input type="hidden" id="p_type2" value="{{$p_type2}}">
-            <input type="hidden" id="p_type3" value="{{$p_type3}}">
-            <input type="hidden" id="p_type4" value="{{$p_type4}}">
+
+            <input type="hidden" id="p_type1">
+            <input type="hidden" id="p_type2">
+            <input type="hidden" id="p_type3">
+            <input type="hidden" id="p_type4">
 
 
             <div class="customers_logo_wrap">
@@ -493,104 +494,91 @@
 
 </div>
 <!-- wrapper end -->
-{{--<script>--}}
-{{--    $(document).ready(function () {--}}
-{{--        @if(!empty($p_type1) || !empty($p_type2) || !empty($p_type3) || !empty($p_type4))--}}
-{{--        $('html, body').animate({--}}
-{{--            scrollTop: $("#cont02").offset().top--}}
-{{--        }, 2000);--}}
-{{--        @endif--}}
-{{--    });--}}
-{{--</script>--}}
 <script>
-    var items1 = document.querySelectorAll('#prodect_lables1 span');
-    items1.forEach(function (item1) {
-        item1.addEventListener('click', function () {
-            if (this.classList.contains('on')) {
-                this.classList.remove('on');
+    let selectedIds1 = [];
+    const listItems1 = document.querySelectorAll('#prodect_lables1 span');
+    listItems1.forEach(item => {
+        item.addEventListener('click', () => {
+            const itemId = item.id;
+            if (selectedIds1.includes(itemId)) {
+                selectedIds1 = selectedIds1.filter(id => id !== itemId);
+                item.classList.remove('on');
             } else {
-                items1.forEach(function (span) {
-                    span.classList.remove('on');
-                });
-                this.classList.add('on');
+                selectedIds1.push(itemId);
+                item.classList.add('on');
             }
+            console.log('Selected IDs:', selectedIds1);
+            const queryString = selectedIds1.join(',');
+            $('#p_type1').val(queryString);
+            fetchData(queryString,$('#p_type2').val(),$('#p_type3').val(),$('#p_type4').val());
         });
     });
-    var items2 = document.querySelectorAll('#prodect_lables2 span');
-    items2.forEach(function (item2) {
-        item2.addEventListener('click', function () {
-            if (this.classList.contains('on')) {
-                this.classList.remove('on');
+
+    let selectedIds2 = [];
+    const listItems2 = document.querySelectorAll('#prodect_lables2 span');
+    listItems2.forEach(item => {
+        item.addEventListener('click', () => {
+            const itemId = item.id;
+            if (selectedIds2.includes(itemId)) {
+                selectedIds2 = selectedIds2.filter(id => id !== itemId);
+                item.classList.remove('on');
             } else {
-                items2.forEach(function (span) {
-                    span.classList.remove('on');
-                });
-                this.classList.add('on');
+                selectedIds2.push(itemId);
+                item.classList.add('on');
             }
+            console.log('Selected IDs:', selectedIds2);
+            const queryString = selectedIds2.join(',');
+            $('#p_type2').val(queryString);
+            fetchData($('#p_type1').val(),queryString,$('#p_type3').val(),$('#p_type4').val());
         });
     });
-    var items3 = document.querySelectorAll('#prodect_lables3 span');
-    items3.forEach(function (item3) {
-        item3.addEventListener('click', function () {
-            if (this.classList.contains('on')) {
-                this.classList.remove('on');
+
+    let selectedIds3 = [];
+    const listItems3 = document.querySelectorAll('#prodect_lables3 span');
+    listItems3.forEach(item => {
+        item.addEventListener('click', () => {
+            const itemId = item.id;
+            if (selectedIds3.includes(itemId)) {
+                selectedIds3 = selectedIds3.filter(id => id !== itemId);
+                item.classList.remove('on');
             } else {
-                items3.forEach(function (span) {
-                    span.classList.remove('on');
-                });
-                this.classList.add('on');
+                selectedIds3.push(itemId);
+                item.classList.add('on');
             }
+            console.log('Selected IDs:', selectedIds3);
+            const queryString = selectedIds3.join(',');
+            $('#p_type3').val(queryString);
+            fetchData($('#p_type1').val(),$('#p_type2').val(),queryString,$('#p_type4').val());
         });
     });
-    var items4 = document.querySelectorAll('#prodect_lables4 span');
-    items4.forEach(function (item4) {
-        item4.addEventListener('click', function () {
-            if (this.classList.contains('on')) {
-                this.classList.remove('on');
+
+    let selectedIds4 = [];
+    const listItems4 = document.querySelectorAll('#prodect_lables4 span');
+    listItems4.forEach(item => {
+        item.addEventListener('click', () => {
+            const itemId = item.id;
+            if (selectedIds4.includes(itemId)) {
+                selectedIds4 = selectedIds4.filter(id => id !== itemId);
+                item.classList.remove('on');
             } else {
-                items4.forEach(function (span) {
-                    span.classList.remove('on');
-                });
-                this.classList.add('on');
+                selectedIds4.push(itemId);
+                item.classList.add('on');
             }
+            console.log('Selected IDs:', selectedIds4);
+            const queryString = selectedIds4.join(',');
+            $('#p_type4').val(queryString);
+            fetchData($('#p_type1').val(),$('#p_type2').val(),$('#p_type3').val(),queryString);
         });
     });
 </script>
 <script>
-    function select_this(id, p_type) {
-        if(p_type === 1){
-            if(id == $('#p_type1').val()){
-                $('#p_type1').val("");
-            }else {
-                $('#p_type1').val(id);
-            }
-        }else if(p_type === 2){
-            if(id == $('#p_type2').val()){
-                $('#p_type2').val("");
-            }else {
-                $('#p_type2').val(id);
-            }
-        }
-        else if(p_type === 3){
-            if(id == $('#p_type3').val()){
-                $('#p_type3').val("");
-            }else {
-                $('#p_type3').val(id);
-            }
-        }
-        else if(p_type === 4){
-            if(id == $('#p_type4').val()){
-                $('#p_type4').val("");
-            }else {
-                $('#p_type4').val(id);
-            }
-        }
+    function fetchData(queryString1, queryString2, queryString3, queryString4) {
         var url = "/webapi/customers/customers_search";
         var params = {};
-        params.p_type1 = $("#p_type1").val();
-        params.p_type2 = $("#p_type2").val();
-        params.p_type3 = $("#p_type3").val();
-        params.p_type4 = $("#p_type4").val();
+        params.p_type1 = queryString1;
+        params.p_type2 = queryString2;
+        params.p_type3 = queryString3;
+        params.p_type4 = queryString4;
         ajax.post(url, params, function(data) {
             if (data['RESULT'] === "OK") {
                 $('#index_customersarea').empty();

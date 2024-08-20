@@ -142,7 +142,7 @@
                                                 @if(!empty($vv['confirm_flg']))
                                                     <li onclick="select_this({{$vv['id']}})"><a>{{$vv['d_file_name']}}</a></li>
                                                 @else
-                                                    <li><a href="{{$vv['d_file_url']}}">{{$vv['d_file_name']}}</a></li>
+                                                    <li><a href="{{$vv['d_file_url']}}" target="_blank">{{$vv['d_file_name']}}</a></li>
                                                 @endif
                                             @endforeach
                                         @endif
