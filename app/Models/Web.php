@@ -199,11 +199,12 @@ class Web extends Model
             if (!empty($lables_arr)) {
                 $query = $query->where(function ($query) use ($lables_arr) {
                     foreach ($lables_arr as $k=>$v){
-                        if ($k == 0){
-                            $query->whereRaw("FIND_IN_SET(?, p_lables)", $v);
-                        }else{
-                            $query->orWhereRaw("FIND_IN_SET(?, p_lables)", $v);
-                        }
+                        $query->whereRaw("FIND_IN_SET(?, p_lables)", $v);
+//                        if ($k == 0){
+//                            $query->whereRaw("FIND_IN_SET(?, p_lables)", $v);
+//                        }else{
+//                            $query->orWhereRaw("FIND_IN_SET(?, p_lables)", $v);
+//                        }
                     }
                 });
             }
@@ -277,11 +278,12 @@ class Web extends Model
             if (!empty($p_type_arr)) {
                 $query = $query->where(function ($query) use ($p_type_arr) {
                     foreach ($p_type_arr as $k=>$v){
-                        if ($k == 0){
-                            $query->whereRaw("FIND_IN_SET(?, c_lables)", [$v]);
-                        }else{
-                            $query->orWhereRaw("FIND_IN_SET(?, c_lables)", [$v]);
-                        }
+                        $query->whereRaw("FIND_IN_SET(?, c_lables)", [$v]);
+//                        if ($k == 0){
+//                            $query->whereRaw("FIND_IN_SET(?, c_lables)", [$v]);
+//                        }else{
+//                            $query->orWhereRaw("FIND_IN_SET(?, c_lables)", [$v]);
+//                        }
                     }
                 });
             }
